@@ -2,7 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { UserInterface } from "../interfaces/userInterface/UserInterface";
 import { loginUser } from "../auth/firebaseAuth";
 import { auth } from "../firebaseConfig/firebaseconfig";
-import { act } from "react";
 
 export const userLoginThunk = createAsyncThunk(
   "user/login",
@@ -31,3 +30,5 @@ export const userLoginSlice = createSlice({
     builder.addCase(userLoginThunk.rejected, (state, action) => {});
   },
 });
+
+export default userLoginSlice.reducer;
