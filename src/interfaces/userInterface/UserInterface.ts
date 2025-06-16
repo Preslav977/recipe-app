@@ -1,5 +1,7 @@
 export interface UserInterface {
-  uid: string;
+  uid?: string;
   email: string;
-  isVerified: boolean;
+  isVerified?: boolean;
+  password: string;
+  loading: "idle" | "pending" | "succeeded" | "failed";
 }
