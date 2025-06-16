@@ -16,14 +16,20 @@
     "@reduxjs/toolkit": "^2.8.2",
     "dotenv": "^16.5.0",
     "firebase": "^11.9.1",
+<<<<<<< HEAD
     "i": "^0.3.7",
+=======
+    "formik": "^2.4.6",
+>>>>>>> 9f361d54d4182b43db27ee066d61b9a9a65fd9bd
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-router-dom": "^7.6.2",
-    "typescript": "^5.8.3"
+    "typescript": "^5.8.3",
+    "yup": "^1.6.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.25.0",
+    "@types/node": "^24.0.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.4.1",
