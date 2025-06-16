@@ -1,17 +1,17 @@
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { createUser } from '../../auth/firebaseAuth';
-import { auth } from '../../firebaseConfig/firebaseconfig';
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { createUser } from "../../auth/firebaseAuth";
+import { auth } from "../../firebaseConfig/firebaseconfig";
 
 const validationSchema = yup.object({
   email: yup
     .string()
-    .email('Enter a valid email')
-    .required('Email is required'),
+    .email("Enter a valid email")
+    .required("Email is required"),
   password: yup
     .string()
-    .min(8, 'Password should be of minimum 8 characters length')
-    .required('Password is required'),
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
   confirmPassword: yup
     .string()
     .oneOf([yup.ref("password")], "Passwords must match")
@@ -21,9 +21,9 @@ const validationSchema = yup.object({
 const SignUpForm = () => {
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
-      confirmPassword: '',
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -46,7 +46,7 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.email && formik.errors.email && (
-            <div style={{ color: 'red' }}>{formik.errors.email}</div>
+            <div style={{ color: "red" }}>{formik.errors.email}</div>
           )}
         </div>
         <div>
@@ -60,7 +60,7 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.password && formik.errors.password && (
-            <div style={{ color: 'red' }}>{formik.errors.password}</div>
+            <div style={{ color: "red" }}>{formik.errors.password}</div>
           )}
         </div>
         <div>
@@ -74,7 +74,7 @@ const SignUpForm = () => {
             onBlur={formik.handleBlur}
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword && (
-            <div style={{ color: 'red' }}>{formik.errors.confirmPassword}</div>
+            <div style={{ color: "red" }}>{formik.errors.confirmPassword}</div>
           )}
         </div>
         <button type="submit">Submit</button>
