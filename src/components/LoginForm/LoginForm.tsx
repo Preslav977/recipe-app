@@ -2,6 +2,9 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { loginUser } from "../../auth/firebaseAuth";
 import { auth } from "../../firebaseConfig/firebaseconfig";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
+import { userLoginThunk } from "../../thunks/userLoginThunk";
 
 const validationSchema = yup.object({
   email: yup
@@ -15,6 +18,8 @@ const validationSchema = yup.object({
 });
 
 const LoginForm = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -23,7 +28,11 @@ const LoginForm = () => {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       //this should be deleted later and replaced with the auth from redux store
-      loginUser(auth, values.email, values.password);
+      // loginUser(auth, values.email, values.password);
+
+      dispatch(
+        userLoginThunk({ email: values.email, password: values.password }),
+      );
       // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     },
   });

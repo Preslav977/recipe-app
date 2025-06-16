@@ -9,8 +9,6 @@ import {
 
 import { auth } from "../firebaseConfig/firebaseconfig";
 
-
-
 export const createUser = async (
   auth: Auth,
   email: string,
@@ -32,19 +30,17 @@ export const createUser = async (
   }
 };
 
-export const EmailVerification=async(user)=>{
-    try{
-      await sendEmailVerification(user);
-      console.log("Email Verification sent");
-    }
-    catch (error: any) {
+export const EmailVerification = async (user) => {
+  try {
+    await sendEmailVerification(user);
+    console.log("Email Verification sent");
+  } catch (error: any) {
     const errorCode = error.code;
     const errorMessage = error.message;
     console.error(errorMessage);
     throw error;
   }
-}
-
+};
 
 export const loginUser = async (
   auth: Auth,
@@ -57,7 +53,7 @@ export const loginUser = async (
       email,
       password,
     );
-    console.log("Logged:", userCredential.user);
+    // console.log("Logged:", userCredential.user);
     return userCredential;
   } catch (error: any) {
     const errorCode = error.code;
