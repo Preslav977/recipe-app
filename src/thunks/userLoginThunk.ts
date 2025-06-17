@@ -8,10 +8,9 @@ export const userLoginThunk = createAsyncThunk(
   async (userLogin: UserInterface) => {
     const response = await loginUser(auth, userLogin.email, userLogin.password);
 
-    const { user, email, password, uid, emailVerified }: UserInterface =
-      response.user;
+    const { email, uid, emailVerified } = response.user;
 
-    return { user, email, password, uid, emailVerified };
+    return { email, uid, emailVerified };
   },
 );
 
@@ -34,11 +33,13 @@ export const userLoginSlice = createSlice({
 
       const userLogin = action.payload;
 
-      const { email, password, uid, emailVerified }: UserInterface = userLogin;
+      // console.log(userLogin);
 
-      state.email = email;
+      const { email, uid, emailVerified } = userLogin;
 
-      state.password = password;
+      if (email !== null) {
+        state.email = email;
+      }
 
       state.uid = uid;
 
