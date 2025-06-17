@@ -1,7 +1,5 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { loginUser } from "../../auth/firebaseAuth";
-import { auth } from "../../firebaseConfig/firebaseconfig";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { userLoginThunk } from "../../thunks/userLoginThunk";

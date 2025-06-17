@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { createUser } from "../../auth/firebaseAuth";
+import { createUser } from "../../auth/createUser";
 import { auth } from "../../firebaseConfig/firebaseconfig";
 
 const validationSchema = yup.object({
