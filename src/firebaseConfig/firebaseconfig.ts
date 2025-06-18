@@ -1,6 +1,5 @@
 /// <reference types="vite/client" />
 
-
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
@@ -24,5 +23,9 @@ export const functions = getFunctions(firebaseApp);
 
 export const auth = getAuth(firebaseApp);
 
-
 connectFunctionsEmulator(functions, "127.0.0.1", 5001);
+
+export { createUser } from "../services/auth/createUser";
+export { emailVerification } from "../services/auth/emailVerification";
+export { loginUser } from "../services/auth/loginUser";
+export { signOutUser } from "../services/auth/signOutUser";

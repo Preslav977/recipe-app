@@ -17,5 +17,3 @@
 //   logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
-
-export { loginUser } from "../../src/auth/loginUser";
