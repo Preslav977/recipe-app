@@ -25,13 +25,13 @@ const LoginForm = () => {
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      //this should be deleted later and replaced with the auth from redux store
-      // loginUser(auth, values.email, values.password);
-
       dispatch(
-        userLoginThunk({ email: values.email, password: values.password }),
+        userLoginThunk({
+          email: values.email,
+          password: values.password,
+          favorites: [],
+        }),
       );
-      // ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
     },
   });
 

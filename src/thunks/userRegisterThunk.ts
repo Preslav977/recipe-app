@@ -13,12 +13,12 @@ export const userRegisterThunk = createAsyncThunk(
       userRegister.password,
     );
 
-    const { email, uid } = response.user;
+    const { email, uid, emailVerified } = response.user;
 
     //doesn't return anything
     const createUserFavoriteList = await createUseFavoriteList();
 
-    return { email, uid };
+    return { email, uid, emailVerified };
   },
 );
 
@@ -26,6 +26,7 @@ const initialState: User = {
   uid: "",
   email: "",
   password: "",
+  confirm_password: "",
   emailVerified: false,
   favorites: [],
   loading: "idle",
@@ -42,11 +43,13 @@ export const userRegisterSlice = createSlice({
 
       const userRegister = action.payload;
 
-      const { email, uid } = userRegister;
+      const { email, uid, emailVerified } = userRegister;
 
       state.email = email!;
 
       state.uid = uid;
+
+      state.emailVerified = emailVerified;
     });
 
     builder.addCase(userRegisterThunk.rejected, (state, action) => {
