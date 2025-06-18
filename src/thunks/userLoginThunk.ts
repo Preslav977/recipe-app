@@ -1,24 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { UserInterface } from "../interfaces/userInterface/UserInterface";
-import { loginUser } from "../auth/loginUser";
+import { User } from "../interfaces/User/User";
+import { loginUser } from "../firebaseConfig/firebaseconfig";
 import { auth } from "../firebaseConfig/firebaseconfig";
 
 export const userLoginThunk = createAsyncThunk(
   "user/login",
-  async (userLogin: UserInterface) => {
+  async (userLogin: User) => {
     const response = await loginUser(auth, userLogin.email, userLogin.password);
 
     const { email, uid, emailVerified } = response.user;
+
+    console.log(email, uid, emailVerified);
 
     return { email, uid, emailVerified };
   },
 );
 
-const initialState: UserInterface = {
+const initialState: User = {
   uid: "",
   email: "",
   password: "",
   emailVerified: false,
+  favorites: [],
   loading: "idle",
 };
 
@@ -37,9 +40,9 @@ export const userLoginSlice = createSlice({
 
       const { email, uid, emailVerified } = userLogin;
 
-      if (email !== null) {
-        state.email = email;
-      }
+      console.log(email, uid, emailVerified);
+
+      state.email = email!;
 
       state.uid = uid;
 

@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import userLoginReducer from "../thunks/userLoginThunk";
+import userRegisterReducer from "../thunks/userRegisterThunk";
 
 const store = configureStore({
   reducer: {
+    userRegisterThunk: userRegisterReducer,
     userLoginThunk: userLoginReducer,
   },
 });
