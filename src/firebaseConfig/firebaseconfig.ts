@@ -29,3 +29,4 @@ export { createUser } from "../services/auth/createUser";
 export { emailVerification } from "../services/auth/emailVerification";
 export { loginUser } from "../services/auth/loginUser";
 export { signOutUser } from "../services/auth/signOutUser";
+export { createUseFavoriteList } from "../services/userFavoriteList/createUserFavoriteList";

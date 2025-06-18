@@ -1,7 +1,7 @@
 import { getAuth } from "firebase/auth";
 import { doc, getDoc, setDoc } from "firebase/firestore";
-import { fireStoreApp } from "../../../firebaseConfig/firebaseconfig";
-import { UserFavoriteList } from "../../../interfaces/UserFavoriteList/UserFavoriteList";
+import { fireStoreApp } from "../../firebaseConfig/firebaseconfig";
+import { UserFavoriteList } from "../../interfaces/UserFavoriteList/UserFavoriteList";
 
 export const createUseFavoriteList = async (): Promise<void> => {
   const auth = getAuth();
