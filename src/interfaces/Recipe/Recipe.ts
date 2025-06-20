@@ -9,3 +9,7 @@ export interface Recipe {
   createdAt: string;
   authorId: string;
 }
+
+export interface RecipeFromFireStore extends Recipe {
+  id: string;
+}
