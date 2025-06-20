@@ -8,8 +8,11 @@ export interface Recipe {
   imageURL?: string;
   createdAt: string;
   authorId: string;
+  loading?: "idle" | "pending" | "succeeded" | "failed";
+  error?: string;
 }
 
 export interface RecipeFromFireStore extends Recipe {
   id: string;
+  title: string;
 }

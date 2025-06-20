@@ -1,11 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userLoginReducer from "../thunks/userLoginThunk";
-import userRegisterReducer from "../thunks/userRegisterThunk";
+import userRegisterReducer from "../thunks/userThunks/userRegisterThunk";
+import userLoginReducer from "../thunks/userThunks/userLoginThunk";
+import createRecipeReducer from "../thunks/recipeThunks/createRecipeThunk";
 
 const store = configureStore({
   reducer: {
     userRegisterThunk: userRegisterReducer,
     userLoginThunk: userLoginReducer,
+    createRecipeThunk: createRecipeReducer,
   },
 });
 

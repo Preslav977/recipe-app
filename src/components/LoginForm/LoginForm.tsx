@@ -2,7 +2,7 @@ import { useFormik } from "formik";
 import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
-import { userLoginThunk } from "../../thunks/userLoginThunk";
+import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
 
 const validationSchema = yup.object({
   email: yup

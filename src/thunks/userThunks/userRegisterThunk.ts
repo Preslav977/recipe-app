@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User } from "../interfaces/User/User";
-import { createUser } from "../firebaseConfig/firebaseconfig";
-import { createUseFavoriteList } from "../firebaseConfig/firebaseconfig";
-import { auth } from "../firebaseConfig/firebaseconfig";
+import { User } from "../../interfaces/User/User";
+import { createUser } from "../../firebaseConfig/firebaseconfig";
+import { createUseFavoriteList } from "../../firebaseConfig/firebaseconfig";
+import { auth } from "../../firebaseConfig/firebaseconfig";
 
 export const userRegisterThunk = createAsyncThunk(
   "user/register",
