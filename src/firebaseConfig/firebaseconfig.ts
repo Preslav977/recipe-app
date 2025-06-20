@@ -3,6 +3,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage, ref } from "firebase/storage";
 
 import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
 
@@ -22,6 +23,8 @@ export const fireStoreApp = getFirestore(firebaseApp);
 export const functions = getFunctions(firebaseApp);
 
 export const auth = getAuth(firebaseApp);
+
+export const storage = getStorage();
 
 connectFunctionsEmulator(functions, "127.0.0.1", 5001);
 
