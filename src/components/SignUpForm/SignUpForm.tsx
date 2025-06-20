@@ -1,6 +1,6 @@
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { userRegisterThunk } from "../../thunks/userRegisterthunk";
+import { userRegisterThunk } from "../../thunks/userRegisterThunk";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 
