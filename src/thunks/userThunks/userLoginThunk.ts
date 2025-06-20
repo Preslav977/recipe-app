@@ -6,13 +6,19 @@ import { auth } from "../../firebaseConfig/firebaseconfig";
 export const userLoginThunk = createAsyncThunk(
   "user/login",
   async (userLogin: User) => {
-    const response = await loginUser(auth, userLogin.email, userLogin.password);
+    try {
+      const response = await loginUser(
+        auth,
+        userLogin.email,
+        userLogin.password,
+      );
 
-    const { email, uid, emailVerified } = response.user;
+      const { email, uid, emailVerified } = response.user;
 
-    console.log(email, uid, emailVerified);
-
-    return { email, uid, emailVerified };
+      return { email, uid, emailVerified };
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
@@ -22,7 +28,9 @@ const initialState: User = {
   password: "",
   emailVerified: false,
   favorites: [],
+  isUserLoggedIn: false,
   loading: "idle",
+  error: "",
 };
 
 export const userLoginSlice = createSlice({
@@ -40,17 +48,19 @@ export const userLoginSlice = createSlice({
 
       const { email, uid, emailVerified } = userLogin;
 
-      console.log(email, uid, emailVerified);
-
       state.email = email!;
 
       state.uid = uid;
 
       state.emailVerified = emailVerified;
+
+      state.isUserLoggedIn = true;
     });
 
     builder.addCase(userLoginThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.isUserLoggedIn = false;
     });
   },
 });

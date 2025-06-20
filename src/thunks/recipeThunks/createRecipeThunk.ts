@@ -8,11 +8,15 @@ import { RootState } from "../../store/store";
 export const createRecipeThunk = createAsyncThunk(
   "recipe/create",
   async (recipe: Recipe) => {
-    const createNewRecipe = await createRecipe(recipe);
+    try {
+      const createNewRecipe = await createRecipe(recipe);
 
-    const getCreatedRecipeId = await getRecipe(createNewRecipe);
+      const getCreatedRecipeId = await getRecipe(createNewRecipe);
 
-    return getCreatedRecipeId;
+      return getCreatedRecipeId;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
@@ -26,6 +30,7 @@ const initialState: Recipe = {
   imageURL: "",
   createdAt: "",
   authorId: "",
+  loading: "idle",
   error: "",
 };
 
