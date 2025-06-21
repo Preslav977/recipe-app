@@ -14,7 +14,11 @@ export const addFavoriteRecipe = async (userId: string, recipeId: string) => {
         const newFavoriteList = [...favoriteList, recipeId];
 
         await updateDoc(userRef, { favorites: newFavoriteList });
+
+        return newFavoriteList;
       }
+
+      return favoriteList;
     }
   } catch (error) {
     throw error;
