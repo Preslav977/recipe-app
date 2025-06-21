@@ -20,10 +20,10 @@ export const createUseFavoriteList = async (): Promise<void> => {
         favorites: [],
       };
       await setDoc(userRef, userFavoriteList);
-      console.log("Successfully created user favorite list");
+      // console.log("Successfully created user favorite list");
     }
   } catch (error) {
-    console.log("Failed to create user favorite list");
+    // console.log("Failed to create user favorite list");
     throw error;
   }
 };

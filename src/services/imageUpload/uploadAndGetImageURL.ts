@@ -9,9 +9,9 @@ export const uploadAndGetImageURL = async (
 
   try {
     await uploadImage(image, fileName);
-    const ulr = await getImageURL(fileName);
+    const url = await getImageURL(fileName);
 
-    return ulr;
+    return url;
   } catch (error) {
     throw error;
   }
