@@ -15,7 +15,7 @@ export const createUser = async (
     );
     // console.log("Registered", userCredential.user);
     return userCredential;
-  } catch (error: any) {
+  } catch (error) {
     const errorCode = error.code;
     const errorMessage = error.message;
     // console.error(errorMessage);
