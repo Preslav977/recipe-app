@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getRecipe } from "../../firebaseConfig/firebaseconfig";
 import { Recipe } from "../../interfaces/Recipe/Recipe";
-import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
+import { getRecipe, updateRecipe } from "../../firebaseConfig/firebaseconfig";
 
-export const getRecipeThunk = createAsyncThunk(
-  "recipes/getRecipe",
+export const updateRecipeThunk = createAsyncThunk(
+  "recipe/updateRecipe",
+  async ({ recipeId, recipe }: { recipeId: string; recipe: Recipe }) => {
+    const getRecipeById = await getRecipe(recipeId);
 
-  async (recipeId: string) => {
-    const getRecipeFromFireBase = await getRecipe(recipeId);
+    const updateTheRecipe = await updateRecipe(recipeId, recipe);
 
-    return getRecipeFromFireBase;
+    return updateTheRecipe;
   },
 );
 
@@ -25,23 +24,20 @@ const initialState: Recipe = {
   createdAt: "",
   authorId: "",
   loading: "idle",
-  error: "",
 };
 
-export const getRecipeSlice = createSlice({
-  name: "recipe/getRecipe",
+export const updateRecipeSlice = createSlice({
+  name: "recipe/updateRecipe",
   initialState,
   reducers: {},
 
   extraReducers: (builder) => {
-    builder.addCase(getRecipeThunk.fulfilled, (state, action) => {
+    builder.addCase(updateRecipeThunk.fulfilled, (state, action) => {
       state.loading = "succeeded";
 
-      const recipePayload = action.payload;
+      const recipePayload: Recipe = action.payload!;
 
-      const getLoggedUserId = useSelector(
-        (state: RootState) => state.userLoginThunk.uid,
-      );
+      console.log(recipePayload);
 
       const {
         title,
@@ -51,6 +47,7 @@ export const getRecipeSlice = createSlice({
         cookingTimeInMinutes,
         servings,
         imageURL,
+        authorId,
       } = recipePayload;
 
       state.title = title;
@@ -67,15 +64,13 @@ export const getRecipeSlice = createSlice({
 
       state.imageURL = imageURL;
 
-      state.createdAt = new Date().toDateString();
-
-      state.authorId = getLoggedUserId!;
+      state.authorId = authorId;
     });
 
-    builder.addCase(getRecipeThunk.rejected, (state, action) => {
+    builder.addCase(updateRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
     });
   },
 });
 
-export default getRecipeSlice.reducer;
+export default updateRecipeSlice.reducer;
