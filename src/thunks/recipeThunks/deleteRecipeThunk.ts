@@ -35,3 +35,5 @@ export const deleteRecipeSlice = createSlice({
     });
   },
 });
+
+export default deleteRecipeSlice.reducer;
