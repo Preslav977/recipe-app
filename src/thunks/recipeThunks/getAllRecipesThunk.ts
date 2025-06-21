@@ -6,9 +6,13 @@ export const getAllRecipesThunk = createAsyncThunk(
   "recipes/getRecipes",
 
   async () => {
-    const getAllRecipesFromFireBase = await getAllRecipes();
+    try {
+      const getAllRecipesFromFireBase = await getAllRecipes();
 
-    return getAllRecipesFromFireBase;
+      return getAllRecipesFromFireBase;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 

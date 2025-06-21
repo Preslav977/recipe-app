@@ -4,9 +4,13 @@ import { deleteRecipe } from "../../firebaseConfig/firebaseconfig";
 export const deleteRecipeThunk = createAsyncThunk(
   "recipe/deleteRecipe",
   async (recipeId: string) => {
-    const deleteRecipeById = await deleteRecipe(recipeId);
+    try {
+      const deleteRecipeById = await deleteRecipe(recipeId);
 
-    return deleteRecipeById;
+      return deleteRecipeById;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 

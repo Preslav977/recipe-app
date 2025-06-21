@@ -6,10 +6,14 @@ export const addRecipeUserFavoriteRecipeListThunk = createAsyncThunk(
   "user/addRecipeFavoriteRecipeList",
 
   async ({ userId, recipeId }: { userId: string; recipeId: string }) => {
-    const addNewRecipeToUserFavoriteRecipeList = await addFavoriteRecipe(
-      userId,
-      recipeId,
-    );
+    try {
+      const addNewRecipeToUserFavoriteRecipeList = await addFavoriteRecipe(
+        userId,
+        recipeId,
+      );
+    } catch (error) {
+      throw error;
+    }
   },
 );
 

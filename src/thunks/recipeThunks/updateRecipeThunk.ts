@@ -5,11 +5,15 @@ import { getRecipe, updateRecipe } from "../../firebaseConfig/firebaseconfig";
 export const updateRecipeThunk = createAsyncThunk(
   "recipe/updateRecipe",
   async ({ recipeId, recipe }: { recipeId: string; recipe: Recipe }) => {
-    const getRecipeById = await getRecipe(recipeId);
+    try {
+      const getRecipeById = await getRecipe(recipeId);
 
-    const updateTheRecipe = await updateRecipe(recipeId, recipe);
+      const updateTheRecipe = await updateRecipe(recipeId, recipe);
 
-    return updateTheRecipe;
+      return updateTheRecipe;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 

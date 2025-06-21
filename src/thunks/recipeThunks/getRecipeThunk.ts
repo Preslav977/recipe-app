@@ -8,9 +8,13 @@ export const getRecipeThunk = createAsyncThunk(
   "recipes/getRecipe",
 
   async (recipeId: string) => {
-    const getRecipeFromFireBase = await getRecipe(recipeId);
+    try {
+      const getRecipeFromFireBase = await getRecipe(recipeId);
 
-    return getRecipeFromFireBase;
+      return getRecipeFromFireBase;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 

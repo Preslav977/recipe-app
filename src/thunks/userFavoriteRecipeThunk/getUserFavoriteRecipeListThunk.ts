@@ -6,9 +6,13 @@ import { getUserFavoriteList } from "../../firebaseConfig/firebaseconfig";
 export const getUserFavoriteRecipeListThunk = createAsyncThunk(
   "user/getFavoriteRecipeList",
   async (userId: string) => {
-    const getUserFavoriteRecipeList = await getUserFavoriteList(userId);
+    try {
+      const getUserFavoriteRecipeList = await getUserFavoriteList(userId);
 
-    return getUserFavoriteRecipeList;
+      return getUserFavoriteRecipeList;
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
