@@ -5,13 +5,15 @@ import { fireStoreApp } from "../../firebaseConfig/firebaseconfig";
 export const updateRecipe = async (
   recipeId: string,
   recipe: Recipe,
-): Promise<void> => {
+): Promise<Recipe> => {
   try {
     const recipeRef = doc(fireStoreApp, "recipes", recipeId);
 
     const recipeCopy = { ...recipe };
 
     await updateDoc(recipeRef, recipeCopy);
+
+    return recipeCopy;
   } catch (error) {
     throw error;
   }
