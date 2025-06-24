@@ -13,6 +13,5 @@ export interface Recipe {
 }
 
 export interface RecipeFromFireStore extends Recipe {
-  id: string;
-  title: string;
+  id?: string;
 }

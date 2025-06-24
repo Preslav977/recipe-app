@@ -1,16 +1,16 @@
 // import './App.css'
-import SignUpForm from "./components/SignUpForm/SignUpForm";
-import LoginForm from "./components/LoginForm/LoginForm";
 import { Provider } from "react-redux";
 import store from "./store/store";
-import AppRouter from "./routes/AppRouter";
+import { Outlet, useNavigate } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
 
 function App() {
+  const Navigate = useNavigate();
   return (
     <Provider store={store}>
-      <AppRouter />
+      <Outlet />
+      <Footer />
     </Provider>
   );
 }
-
 export default App;

@@ -4,6 +4,8 @@ import { userRegisterThunk } from "../../thunks/userThunks/userRegisterThunk";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
+import { Link } from "react-router-dom";
+import { validationSchema } from "./validationSchema";
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -14,23 +16,7 @@ const SignUpForm = () => {
       password: "",
       confirmPassword: "",
     },
-    validationSchema: yup.object({
-      email: yup
-        .string()
-        .email("Enter a valid email")
-        .trim()
-        .required("Email is required"),
-      password: yup
-        .string()
-        .min(8, "Password should be of minimum 8 characters length")
-        .trim()
-        .required("Password is required"),
-      confirmPassword: yup
-        .string()
-        .oneOf([yup.ref("password")], "Passwords must match")
-        .trim()
-        .required("Required"),
-    }),
+    validationSchema: validationSchema,
     onSubmit: (values) => {
       console.log("SignUpForm values:", values);
       dispatch(
@@ -118,8 +104,8 @@ const SignUpForm = () => {
             <Typography variant="body2" align="center" sx={{ mt: 2 }}>
               Already have an account?{" "}
               <Box
-                component="a"
-                href="/login"
+                component={Link}
+                to="/login"
                 sx={{ textDecoration: "none", color: "primary.main" }}
               >
                 Login

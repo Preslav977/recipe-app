@@ -1,12 +1,8 @@
-import Layout from "../../components/Layout";
+import Layout from "../Footer/Footer";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
 function LoginPage() {
-  return (
-    <Layout>
-      <LoginForm />
-    </Layout>
-  );
+  return <LoginForm />;
 }
 
 export default LoginPage;

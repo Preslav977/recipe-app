@@ -1,27 +1,14 @@
 import { useFormik } from "formik";
-import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
 import { Box, Button, Paper, TextField, Typography } from "@mui/material";
-
-const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .trim()
-    .required("Email is required"),
-  password: yup
-    .string()
-    .min(8, "Password should be of minimum 8 characters length")
-    .trim()
-    .required("Password is required"),
-});
+import { Link, useNavigate } from "react-router-dom";
+import { validationSchema } from "./validationSchema";
 
 const LoginForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  // This selector can be used to access the user login stat
-
+  const Navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       email: "",
@@ -36,6 +23,7 @@ const LoginForm = () => {
           favorites: [],
         }),
       );
+      Navigate("/");
     },
   });
 
@@ -94,8 +82,8 @@ const LoginForm = () => {
             <Typography variant="body2" align="center" sx={{ mt: 2 }}>
               Don’t have an account?{" "}
               <Box
-                component="a"
-                href="/signup"
+                component={Link}
+                to="/register"
                 sx={{ textDecoration: "none", color: "primary.main" }}
               >
                 Sign Up
