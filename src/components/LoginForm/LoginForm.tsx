@@ -14,6 +14,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import ErrorDialog from "../Dialogs/ErrorDialog";
 import SuccessDialog from "../Dialogs/SuccessDialog";
+import FullScreenLoader from "../Loader/FullScreenLoader";
+
 
 const validationSchema = yup.object({
   email: yup.string().email("Enter a valid email").required("Email is required"),

@@ -6,6 +6,7 @@ import SignUpForm from "./components/SignUpForm/SignUpForm";
 import LoginForm from "./components/LoginForm/LoginForm";
 import { Provider } from "react-redux";
 import store from "./store/store";
+import FullScreenLoader from './components/Loader/FullScreenLoader';
 
 // import { BrowserRouter as Router } from "react-router-dom";
 
@@ -16,7 +17,9 @@ function App() {
       <Navbar />          
       <LoginForm />
       <SignUpForm />
+       <FullScreenLoader />
     </Provider>
+    
   );
 }
 
