@@ -4,90 +4,76 @@ import * as yup from "yup";
 import { userRegisterThunk } from "../../thunks/userRegisterThunk";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
-import { Paper, Typography, Box, Button, TextField } from "@mui/material";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
+import {
+  Paper,
+  Typography,
+  Box,
+  Button,
+  TextField,
+  InputAdornment,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-
+import SuccessDialog from "../Dialogs/SuccessDialog";
+import ErrorDialog from "../Dialogs/ErrorDialog";
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = yup.object({
-  email: yup
-    .string()
-    .email("Enter a valid email")
-    .trim()
-    .required("Email is required"),
-  password: yup
-    .string()
-    .min(8, "Password should be of minimum 8 characters length")
-    .trim()
-    .required("Password is required"),
-  confirmPassword: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords must match")
-    .trim()
-    .required("Required"),
+  email: yup.string().email("Enter a valid email").required("Email is required"),
+  password: yup.string().min(8, "Password should be of minimum 8 characters length").required("Password is required"),
+  confirmPassword: yup.string().oneOf([yup.ref("password")], "Passwords must match").required("Confirm Password is required"),
 });
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [successOpen, setSuccessOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorOpen, setErrorOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      confirmPassword: "",
-    },
+    initialValues: { email: "", password: "", confirmPassword: "" },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      dispatch(
-        userRegisterThunk({
+    onSubmit: async (values, { resetForm }) => {
+      setIsLoading(true);
+      try {
+        await dispatch(userRegisterThunk({
           email: values.email,
           password: values.password,
           favorites: [],
-        })
-      );
-      resetForm();
+        })).unwrap();
+
+        setSuccessMessage("Registration successful! Please log in now.");
+        setSuccessOpen(true);
+        resetForm();
+      } catch (err: any) {
+        setErrorMessage("Registration failed. Please try again.");
+        setErrorOpen(true);
+      } finally {
+        setIsLoading(false);
+      }
     },
   });
 
   return (
-    <Box
-      sx={{
-        minHeight: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#F4F9F9", 
-        p: 2,
-      }}
-    >
-      <Paper
-        elevation={3}
-        sx={{
-          maxWidth: 400,
-          width: "100%",
-          p: 4,
-          borderRadius: 2,
-        }}
-      >
-        <Typography variant="h4" align="center" gutterBottom>
-          Sign Up
-        </Typography>
-
-        <Box component="form" onSubmit={formik.handleSubmit} noValidate autoComplete="off">
+    <Box sx={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#F4F9F9", p: 2 }}>
+      <Paper elevation={3} sx={{ maxWidth: 400, width: "100%", p: 4, borderRadius: 2, position: "relative" }}>
+        <Typography variant="h4" align="center" gutterBottom>Sign Up</Typography>
+        <Box component="form" onSubmit={formik.handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
           <TextField
             fullWidth
             label="Email*"
             type="email"
-            margin="normal"
-            variant="outlined"
             name="email"
-            id="email"
-            onChange={formik.handleChange}
             value={formik.values.email}
+            onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
@@ -97,27 +83,20 @@ const SignUpForm = () => {
             fullWidth
             label="Password*"
             type={showPassword ? "text" : "password"}
-            margin="normal"
-            variant="outlined"
             name="password"
-            id="password"
-            onChange={formik.handleChange}
             value={formik.values.password}
+            onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    edge="end"
-                  >
+                  <IconButton onClick={() => setShowPassword(prev => !prev)} edge="end">
                     {showPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
 
@@ -125,45 +104,47 @@ const SignUpForm = () => {
             fullWidth
             label="Confirm Password*"
             type={showConfirmPassword ? "text" : "password"}
-            margin="normal"
-            variant="outlined"
             name="confirmPassword"
-            id="confirmPassword"
-            onChange={formik.handleChange}
             value={formik.values.confirmPassword}
+            onChange={formik.handleChange}
             onBlur={formik.handleBlur}
             error={formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)}
             helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle confirm password visibility"
-                    onClick={() => setShowConfirmPassword((prev) => !prev)}
-                    edge="end"
-                  >
+                  <IconButton onClick={() => setShowConfirmPassword(prev => !prev)} edge="end">
                     {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                   </IconButton>
                 </InputAdornment>
-              ),
+              )
             }}
           />
 
-          <Button fullWidth type="submit" variant="contained" color="primary" sx={{ mt: 2 }}>
-            Submit
+          <Button type="submit" variant="contained" color="primary" disabled={isLoading}>
+            {isLoading ? <CircularProgress size={24} /> : "Submit"}
           </Button>
 
-          <Typography variant="body2" align="center" sx={{ mt: 2 }}>
-            Already have an account?{" "}
-            <Box
-              component="a"
-              href="/login"
-              sx={{ textDecoration: "none", color: "primary.main", cursor: "pointer" }}
-            >
-              Login
-            </Box>
+          <Typography variant="body2" align="center">
+            Already have an account? <a href="/login" style={{ color: '#1976d2', textDecoration: 'none' }}>Login</a>
           </Typography>
         </Box>
+
+        <ErrorDialog
+          open={errorOpen}
+          message={errorMessage}
+          onClose={() => setErrorOpen(false)}
+         
+        />
+
+        <SuccessDialog
+          open={successOpen}
+          message={successMessage}
+          onClose={() => {
+            setSuccessOpen(false);
+            navigate("/login");
+          }}
+        />
       </Paper>
     </Box>
   );
