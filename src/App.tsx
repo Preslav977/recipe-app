@@ -1,3 +1,4 @@
+
 import './App.css'
 import React from "react"; 
 import Navbar from "./components/Navigation/Navbar";
@@ -10,17 +11,21 @@ import FullScreenLoader from './components/Loader/FullScreenLoader';
 
 // import { BrowserRouter as Router } from "react-router-dom";
 
+// import './App.css'
+import { Provider } from "react-redux";
+import store from "./store/store";
+import { Outlet, useNavigate } from "react-router-dom";
+import Footer from "./components/Footer/Footer";
 
 function App() {
+  const Navigate = useNavigate();
   return (
     <Provider store={store}>
-      <Navbar />          
-      <LoginForm />
-      <SignUpForm />
-       <FullScreenLoader />
+      <Navbar />         
+      <Outlet />
+      <Footer />
     </Provider>
     
   );
 }
-
 export default App;

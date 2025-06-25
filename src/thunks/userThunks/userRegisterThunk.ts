@@ -1,24 +1,28 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { User } from "../interfaces/User/User";
-import { createUser } from "../firebaseConfig/firebaseconfig";
-import { createUseFavoriteList } from "../firebaseConfig/firebaseconfig";
-import { auth } from "../firebaseConfig/firebaseconfig";
+import { User } from "../../interfaces/User/User";
+import { createUser } from "../../firebaseConfig/firebaseconfig";
+import { createUseFavoriteList } from "../../firebaseConfig/firebaseconfig";
+import { auth } from "../../firebaseConfig/firebaseconfig";
 
 export const userRegisterThunk = createAsyncThunk(
   "user/register",
   async (userRegister: User) => {
-    const response = await createUser(
-      auth,
-      userRegister.email,
-      userRegister.password,
-    );
+    try {
+      const response = await createUser(
+        auth,
+        userRegister.email,
+        userRegister.password,
+      );
 
-    const { email, uid, emailVerified } = response.user;
+      const { email, uid, emailVerified } = response.user;
 
-    //doesn't return anything
-    const createUserFavoriteList = await createUseFavoriteList();
+      //doesn't return anything
+      const createUserFavoriteList = await createUseFavoriteList();
 
-    return { email, uid, emailVerified };
+      return { email, uid, emailVerified };
+    } catch (error) {
+      throw error;
+    }
   },
 );
 
