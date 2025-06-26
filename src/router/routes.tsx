@@ -6,13 +6,14 @@ import { CreateRecipePage } from "../components/Pages/CreateRecipePage";
 import { EditRecipePage } from "../components/Pages/EditRecipePage";
 import { ForgotPasswordForm } from "../components/ForgotPassword/ForgotPassword";
 import { HomePage } from "../components/Pages/HomePage";
+import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 
 const routes = [
   {
     path: "/",
 
     element: <App />,
-    errorElement: <p>404 Not Found</p>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,
