@@ -2,8 +2,6 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { Recipe } from "../../interfaces/Recipe/Recipe";
 import { createRecipe } from "../../firebaseConfig/firebaseconfig";
 import { getRecipe } from "../../firebaseConfig/firebaseconfig";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 
 export const createRecipeThunk = createAsyncThunk(
   "recipe/create",
@@ -23,7 +21,7 @@ export const createRecipeThunk = createAsyncThunk(
 const initialState: Recipe = {
   title: "",
   description: "",
-  ingredients: [""],
+  ingredients: [],
   instructions: "",
   cookingTimeInMinutes: 0,
   servings: 0,
@@ -42,10 +40,6 @@ export const createRecipeSlice = createSlice({
     builder.addCase(createRecipeThunk.fulfilled, (state, action) => {
       state.loading = "succeeded";
 
-      const getLoggedUserId = useSelector(
-        (state: RootState) => state.userLoginThunk.uid,
-      );
-
       const recipePayload = action.payload;
 
       const {
@@ -56,6 +50,7 @@ export const createRecipeSlice = createSlice({
         cookingTimeInMinutes,
         servings,
         imageURL,
+        authorId,
       } = recipePayload;
 
       state.title = title;
@@ -74,7 +69,7 @@ export const createRecipeSlice = createSlice({
 
       state.createdAt = new Date().toDateString();
 
-      state.authorId = getLoggedUserId!;
+      state.authorId = authorId;
     });
 
     builder.addCase(createRecipeThunk.rejected, (state, action) => {

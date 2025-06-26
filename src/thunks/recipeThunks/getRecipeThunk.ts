@@ -21,7 +21,7 @@ export const getRecipeThunk = createAsyncThunk(
 const initialState: Recipe = {
   title: "",
   description: "",
-  ingredients: [""],
+  ingredients: [],
   instructions: "",
   cookingTimeInMinutes: 0,
   servings: 0,
@@ -43,10 +43,6 @@ export const getRecipeSlice = createSlice({
 
       const recipePayload = action.payload;
 
-      const getLoggedUserId = useSelector(
-        (state: RootState) => state.userLoginThunk.uid,
-      );
-
       const {
         title,
         description,
@@ -55,6 +51,7 @@ export const getRecipeSlice = createSlice({
         cookingTimeInMinutes,
         servings,
         imageURL,
+        authorId,
       } = recipePayload;
 
       state.title = title;
@@ -73,7 +70,7 @@ export const getRecipeSlice = createSlice({
 
       state.createdAt = new Date().toDateString();
 
-      state.authorId = getLoggedUserId!;
+      state.authorId = authorId;
     });
 
     builder.addCase(getRecipeThunk.rejected, (state, action) => {
