@@ -17,27 +17,33 @@ import {
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link, useLocation } from "react-router-dom";
-import HomeIcon from '@mui/icons-material/Home';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import CreateIcon from '@mui/icons-material/Create';
-import VpnKeyIcon from '@mui/icons-material/VpnKey';
-import HowToRegIcon from '@mui/icons-material/HowToReg';
+import HomeIcon from "@mui/icons-material/Home";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import CreateIcon from "@mui/icons-material/Create";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 import logo from "../../assets/logo.png";
+import { Logout } from "@mui/icons-material";
 
 const navItems = [
-  { title: "Home", path: "/", icon: <HomeIcon /> },
+  { title: "Home", icon: <HomeIcon /> },
   { title: "Recipes", path: "/recipes", icon: <MenuBookIcon /> },
-  { title: "Favorite recipe", path: "/favorites", icon: <FavoriteIcon /> },
-  { title: "Create recipe", path: "/create-recipe", icon: <CreateIcon /> },
+  {
+    title: "Favorite recipes",
+    path: "/favoriteRecipes",
+    icon: <FavoriteIcon />,
+  },
+  { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
   { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
-  { title: "Register", path: "/register", icon: <HowToRegIcon /> },
+  { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
+  { title: "Log Out", path: "/login", icon: <Logout /> },
 ];
 
 const Navbar = () => {
   const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const isMobile = useMediaQuery(theme.breakpoints.down(936));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -46,18 +52,20 @@ const Navbar = () => {
 
   const drawerList = (
     <Box
-      sx={{ width: 250 }}
+      sx={{ maxWidth: 250 }}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <Box sx={{ display: "flex", alignItems: "center", padding: 1 }}>
-        <img
-          src={logo}
-          alt="App Logo"
-          style={{ width: 32, height: 32, marginRight: 30}}
-        />
-        <Typography variant="h6" color="textPrimary">
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          padding: 1,
+        }}
+      >
+        <img src={logo} alt="App Logo" style={{ width: 32, height: 32 }} />
+        <Typography variant="h1" color="textPrimary">
           Recipe App
         </Typography>
       </Box>
@@ -67,7 +75,13 @@ const Navbar = () => {
           return (
             <ListItem key={path} disablePadding>
               <ListItemButton component={Link} to={path} selected={isActive}>
-                <ListItemIcon sx={{ color: isActive ? "secondary.main" : "inherit", winWidth: "unset", mr: 0.01 }}>
+                <ListItemIcon
+                  sx={{
+                    color: isActive ? "secondary.main" : "inherit",
+                    winWidth: "unset",
+                    mr: 0.01,
+                  }}
+                >
                   {icon}
                 </ListItemIcon>
                 <ListItemText
@@ -86,16 +100,40 @@ const Navbar = () => {
   );
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#1976d2" }}>
-      <Toolbar  sx={{ display: "center", justifyContent: "space-between" }}>
-    
-        <Link to="/" style={{ display: "flex", alignItems: "center", flexGrow: 1, textDecoration: "none" }}>
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "#1976d2",
+      }}
+    >
+      <Toolbar
+        sx={{
+          display: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <Link
+          to={"/recipes"}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            textDecoration: "none",
+          }}
+        >
           <img
             src={logo}
             alt="App Logo"
-            style={{ width: 40, height: 40, marginRight: 30}}
+            style={{ maxWidth: 40, maxHeight: 40, marginRight: 10 }}
           />
-          <Typography variant="h6" color="white">
+          <Typography
+            variant="h1"
+            color="white"
+            sx={{
+              fontSize: "1.25rem",
+              marginBottom: "0.25em",
+            }}
+          >
             Recipe App
           </Typography>
         </Link>
@@ -112,7 +150,11 @@ const Navbar = () => {
               <MenuIcon />
             </IconButton>
 
-            <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
+            <Drawer
+              anchor="right"
+              open={drawerOpen}
+              onClose={toggleDrawer(false)}
+            >
               {drawerList}
             </Drawer>
           </>
@@ -130,7 +172,7 @@ const Navbar = () => {
                     fontWeight: isActive ? "bold" : "normal",
                     display: "flex",
                     alignItems: "center",
-                    gap: 0.5 ,
+                    gap: 0.5,
                     textTransform: "none",
                     "&:hover": {
                       backgroundColor: "rgba(77, 47, 167, 0.1)",
