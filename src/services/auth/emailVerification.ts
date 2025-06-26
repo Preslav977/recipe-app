@@ -1,8 +1,9 @@
-import { sendEmailVerification } from "firebase/auth";
+import { getAuth, sendEmailVerification } from "firebase/auth";
 
-export const emailVerification = async (user) => {
+export const emailVerification = async () => {
   try {
-    await sendEmailVerification(user);
+    const auth = getAuth();
+    await sendEmailVerification(auth.currentUser!);
     // console.log("Email Verification sent");
   } catch (error: any) {
     const errorCode = error.code;
