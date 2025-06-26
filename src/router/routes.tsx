@@ -1,19 +1,29 @@
 import App from "../App";
 import LoginForm from "../components/LoginForm/LoginForm";
 import SignUpForm from "../components/SignUpForm/SignUpForm";
-import { RecipeForm } from "../components/RecipeForm/RecipeForm";
-import { ProtectedRoute } from "./ProtectedRoute";
+import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
 import { CreateRecipePage } from "../components/Pages/CreateRecipePage";
 import { EditRecipePage } from "../components/Pages/EditRecipePage";
+import { ForgotPasswordForm } from "../components/ForgotPassword/ForgotPassword";
+import { HomePage } from "../components/Pages/HomePage";
 
 const routes = [
   {
     path: "/",
+
     element: <App />,
     errorElement: <p>404 Not Found</p>,
     children: [
       {
-        path: "/register",
+        index: true,
+        element: (
+          <ProtectedRoute>
+            <HomePage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/signup",
         element: <SignUpForm />,
       },
       {
@@ -21,7 +31,13 @@ const routes = [
         element: <LoginForm />,
       },
       {
-        path: "/create",
+        path: "/forgotPassword",
+        element: <ForgotPasswordForm />,
+      },
+      { path: "/recipes", element: <ProtectedRoute>''</ProtectedRoute> },
+      { path: "/recipe/:id", element: <ProtectedRoute>''</ProtectedRoute> },
+      {
+        path: "/createRecipe",
         element: (
           <ProtectedRoute>
             <CreateRecipePage />
@@ -29,12 +45,24 @@ const routes = [
         ),
       },
       {
-        path: "/edit/:recipeId",
+        path: "/updateRecipe/:recipeId",
         element: (
           <ProtectedRoute>
             <EditRecipePage />
           </ProtectedRoute>
         ),
+      },
+      {
+        path: "/deleteRecipe/:recipeId",
+        element: <ProtectedRoute>''</ProtectedRoute>,
+      },
+      {
+        path: "/favoriteRecipes",
+        element: <ProtectedRoute>''</ProtectedRoute>,
+      },
+      {
+        path: "/favoriteRecipe/:id",
+        element: <ProtectedRoute>''</ProtectedRoute>,
       },
     ],
   },
