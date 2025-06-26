@@ -1,0 +1,45 @@
+import { useDispatch, useSelector } from "react-redux";
+import { RecipeCard } from "../RecipeCard/RecipeCard";
+import { AppDispatch, RootState } from "../../store/store";
+import { useEffect } from "react";
+import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk";
+import Box from "@mui/material/Box";
+import { Container, Typography } from "@mui/material";
+
+export const RecipesPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const { recipes, loading, error } = useSelector(
+    (state: RootState) => state.getAllRecipesThunk,
+  );
+
+  useEffect(() => {
+    dispatch(getAllRecipesThunk());
+  }, [dispatch]);
+
+  const allRecipes = useSelector(
+    (state: RootState) => state.getAllRecipesThunk.recipes,
+  );
+  return (
+    <Container sx={{ mb: 6 }}>
+      <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
+        All Recipes
+      </Typography>
+      {loading === "pending" && <Typography>Loading...</Typography>}
+      {loading === "failed" && <Typography>Error: {error}</Typography>}
+      {allRecipes.length === 0 && <Typography>No Recipes Yet</Typography>}
+
+      <Box
+        sx={{
+          display: "flex",
+          flexWrap: "wrap",
+          gap: 2,
+          justifyContent: { xs: "center", md: "flex-start" },
+        }}
+      >
+        {allRecipes.map((recipe, index) => (
+          <RecipeCard key={index} recipe={recipe} path="recipe" />
+        ))}
+      </Box>
+    </Container>
+  );
+};
