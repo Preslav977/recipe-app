@@ -11,6 +11,8 @@ export const addRecipeUserFavoriteRecipeListThunk = createAsyncThunk(
         userId,
         recipeId,
       );
+
+      return addNewRecipeToUserFavoriteRecipeList;
     } catch (error) {
       throw error;
     }

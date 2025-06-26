@@ -18,6 +18,8 @@ export const removeFavoriteRecipe = async (
       );
 
       await updateDoc(userRef, { favorites: newFavoriteList });
+
+      return newFavoriteList;
     }
   } catch (error) {
     throw error;
