@@ -9,13 +9,15 @@ import { HomePage } from "../components/Pages/HomePage";
 import { RecipesPage } from "../components/Pages/RecipesPage";
 import { FavouriteRecipesPage } from "../components/Pages/FavouriteRecipesPage";
 import { RecipeDetailsPage } from "../components/Pages/RecipeDetailsPage";
+import { ErrorPage } from "../components/ErrorPage/ErrorPage";
+
 
 const routes = [
   {
     path: "/",
 
     element: <App />,
-    errorElement: <p>404 Not Found</p>,
+    errorElement: <ErrorPage />,
     children: [
       {
         index: true,

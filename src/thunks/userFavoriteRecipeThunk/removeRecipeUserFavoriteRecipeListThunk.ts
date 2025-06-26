@@ -38,7 +38,10 @@ export const removeRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const getAllNewFilteredUserRecipeIdsFromFavoriteList = action.payload;
 
-        //add the new filtered IDs to the new favorite list
+        const [firstRecipeId, ...rest] =
+          getAllNewFilteredUserRecipeIdsFromFavoriteList;
+
+        state.favorites = [...state.favorites, firstRecipeId, ...rest];
       },
     );
 
