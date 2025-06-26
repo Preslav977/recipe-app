@@ -14,6 +14,7 @@ import { uploadAndGetImageURL } from "./../../services/imageUpload/uploadAndGetI
 import { v4 as uuidv4 } from "uuid";
 import RecipeFormValues from "../../interfaces/RecipeForm/RecipeFormValues";
 import { updateRecipeThunk } from "../../thunks/recipeThunks/updateRecipeThunk";
+import { useNavigate } from "react-router-dom";
 
 export const RecipeForm = React.memo(function RecipeForm({
   recipeToEdit,
@@ -21,6 +22,7 @@ export const RecipeForm = React.memo(function RecipeForm({
 }: RecipeFormProps) {
   const dispatch = useDispatch<AppDispatch>();
   const userId = useSelector((state: RootState) => state.userLoginThunk.uid);
+  const navigate = useNavigate();
 
   const formik = useFormik<RecipeFormValues>({
     validateOnChange: false, // doesn't run validation on every keystroke
@@ -30,42 +32,46 @@ export const RecipeForm = React.memo(function RecipeForm({
 
     // when form is submitted
     onSubmit: async (values) => {
-      console.log("Sumbit");
-      let imageUrl = values.imageUrl;
+      try {
+        let imageUrl = values.imageUrl;
 
-      // upload Image if selected
-      if (values.image) {
-        const pictureNewName = uuidv4();
-        const uploadedUrl = await uploadAndGetImageURL(
-          values.image,
-          pictureNewName,
-        );
-        if (!uploadedUrl) return; // stop if upload failed
-        imageUrl = uploadedUrl;
-        formik.setFieldValue("imageUrl", imageUrl); // update form state
-      }
+        // upload Image if selected
+        if (values.image) {
+          const pictureNewName = uuidv4();
+          const uploadedUrl = await uploadAndGetImageURL(
+            values.image,
+            pictureNewName,
+          );
+          if (!uploadedUrl) throw new Error("Image upload returned empty URL");
+          imageUrl = uploadedUrl;
+          formik.setFieldValue("imageUrl", imageUrl); // update form state
+        }
 
-      // object to send to  redux
-      const recipe = {
-        title: values.title,
-        description: values.description,
-        ingredients: values.ingredients,
-        instructions: values.instructions,
-        cookingTimeInMinutes: Number(values.cookingTimeInMinutes),
-        servings: Number(values.servings),
-        imageURL: imageUrl,
-        createdAt: values.createdAt || new Date().toDateString(),
-        authorId: userId || "",
-      };
+        // object to send to  redux
+        const recipe = {
+          title: values.title,
+          description: values.description,
+          ingredients: values.ingredients,
+          instructions: values.instructions,
+          cookingTimeInMinutes: Number(values.cookingTimeInMinutes),
+          servings: Number(values.servings),
+          imageURL: imageUrl,
+          createdAt: values.createdAt || new Date().toDateString(),
+          authorId: userId || "",
+        };
 
-      // if we are editing a recipe
-      if (recipeToEdit && recipeId) {
-        dispatch(updateRecipeThunk({ recipeId, recipe }));
-        console.log("Edit mode: updating recipe");
-      } else {
-        // if it's new recipe, dispatch create action
-        dispatch(createRecipeThunk(recipe));
-        console.log("Create mode: creating recipe");
+        // if we are editing a recipe
+        if (recipeToEdit && recipeId) {
+          await dispatch(updateRecipeThunk({ recipeId, recipe })).unwrap();
+          console.log("Edit mode: updating recipe");
+        } else {
+          // if it's new recipe, dispatch create action
+          await dispatch(createRecipeThunk(recipe)).unwrap();
+          console.log("Create mode: creating recipe");
+        }
+        navigate("/recipes");
+      } catch (e) {
+        console.error(e);
       }
     },
   });

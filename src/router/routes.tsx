@@ -6,7 +6,11 @@ import { CreateRecipePage } from "../components/Pages/CreateRecipePage";
 import { EditRecipePage } from "../components/Pages/EditRecipePage";
 import { ForgotPasswordForm } from "../components/ForgotPassword/ForgotPassword";
 import { HomePage } from "../components/Pages/HomePage";
+import { RecipesPage } from "../components/Pages/RecipesPage";
+import { FavouriteRecipesPage } from "../components/Pages/FavouriteRecipesPage";
+import { RecipeDetailsPage } from "../components/Pages/RecipeDetailsPage";
 import { ErrorPage } from "../components/ErrorPage/ErrorPage";
+
 
 const routes = [
   {
@@ -35,8 +39,22 @@ const routes = [
         path: "/forgotPassword",
         element: <ForgotPasswordForm />,
       },
-      { path: "/recipes", element: <ProtectedRoute>''</ProtectedRoute> },
-      { path: "/recipe/:id", element: <ProtectedRoute>''</ProtectedRoute> },
+      {
+        path: "/recipes",
+        element: (
+          <ProtectedRoute>
+            <RecipesPage />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: "/recipe/:id",
+        element: (
+          <ProtectedRoute>
+            <RecipeDetailsPage />
+          </ProtectedRoute>
+        ),
+      },
       {
         path: "/createRecipe",
         element: (
@@ -59,11 +77,19 @@ const routes = [
       },
       {
         path: "/favoriteRecipes",
-        element: <ProtectedRoute>''</ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <FavouriteRecipesPage />
+          </ProtectedRoute>
+        ),
       },
       {
         path: "/favoriteRecipe/:id",
-        element: <ProtectedRoute>''</ProtectedRoute>,
+        element: (
+          <ProtectedRoute>
+            <RecipeDetailsPage />
+          </ProtectedRoute>
+        ),
       },
     ],
   },

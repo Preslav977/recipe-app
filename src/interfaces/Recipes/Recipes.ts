@@ -1,7 +1,7 @@
-import { Recipe } from "../Recipe/Recipe";
+import { RecipeFromFireStore } from "../Recipe/Recipe";
 
 export interface Recipes {
-  recipes: Recipe[];
+  recipes: RecipeFromFireStore[];
   loading?: "idle" | "pending" | "succeeded" | "failed";
   error: string;
 }
