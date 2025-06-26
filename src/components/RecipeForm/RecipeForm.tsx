@@ -74,7 +74,7 @@ export const RecipeForm = React.memo(function RecipeForm({
   return (
     <FormikProvider value={formik}>
       <form onSubmit={formik.handleSubmit}>
-        <Stack spacing={2}>
+        <Stack spacing={1} pb={8}>
           <FormikTextField name="title" label="Recipe Title" />
 
           <FormikTextField
