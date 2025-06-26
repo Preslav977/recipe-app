@@ -9,6 +9,6 @@ export const uploadImage = async (image: File, fileName: string) => {
 
     await uploadBytes(imageRef, image);
   } catch (error) {
-    error;
+    throw error;
   }
 };
