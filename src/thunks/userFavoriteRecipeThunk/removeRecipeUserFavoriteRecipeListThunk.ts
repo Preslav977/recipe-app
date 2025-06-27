@@ -52,6 +52,9 @@ export const removeRecipeUserFavoriteRecipeListSlice = createSlice({
       removeRecipeUserFavoriteRecipeListThunk.rejected,
       (state, action) => {
         state.loading = "failed";
+
+        state.error =
+          "Failed to remove favorite recipe. Check if an ID is provided!";
       },
     );
   },

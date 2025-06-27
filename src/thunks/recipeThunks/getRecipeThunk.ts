@@ -75,6 +75,8 @@ export const getRecipeSlice = createSlice({
 
     builder.addCase(getRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error = "Failed to fetch a recipe. Check if an ID is provided!";
     });
   },
 });

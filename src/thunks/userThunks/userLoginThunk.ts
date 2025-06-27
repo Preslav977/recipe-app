@@ -61,6 +61,8 @@ export const userLoginSlice = createSlice({
       state.loading = "failed";
 
       state.isUserLoggedIn = false;
+
+      state.error = "Login failed. Check you credentials!";
     });
   },
 });

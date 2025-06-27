@@ -19,7 +19,7 @@ export const ForgotPasswordForm = () => {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
+        minHeight: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -34,7 +34,7 @@ export const ForgotPasswordForm = () => {
         onSubmit={formik.handleSubmit}
         sx={{ maxWidth: 400, width: 1, p: 4, borderRadius: 2 }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom fontSize={"2rem"}>
           Forgot Password
         </Typography>
 

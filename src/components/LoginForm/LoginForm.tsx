@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import {
   Box,
@@ -12,7 +12,7 @@ import {
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
-import { AppDispatch } from "../../store/store";
+import { AppDispatch, RootState } from "../../store/store";
 import { useState } from "react";
 import { validationSchema } from "./validationSchema";
 
@@ -21,6 +21,8 @@ const LoginForm = () => {
   const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
+
+  const { error } = useSelector((state: RootState) => state.userLoginThunk)!;
 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
@@ -42,7 +44,7 @@ const LoginForm = () => {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
+        minHeight: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -57,7 +59,7 @@ const LoginForm = () => {
         onSubmit={formik.handleSubmit}
         sx={{ maxWidth: 400, width: 1, p: 4, borderRadius: 2 }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom fontSize={"2rem"}>
           Login
         </Typography>
 
@@ -94,7 +96,9 @@ const LoginForm = () => {
             },
           }}
         />
-
+        <Typography variant="body2" sx={{ color: "red" }}>
+          {error ? error : ""}
+        </Typography>
         <Button sx={{ mt: 2 }} type="submit" fullWidth variant="contained">
           Submit
         </Button>

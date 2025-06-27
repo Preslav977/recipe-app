@@ -42,6 +42,9 @@ export const deleteRecipeSlice = createSlice({
 
     builder.addCase(deleteRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error =
+        "Failed to delete a recipe. Check if correct ID is provided!";
     });
   },
 });

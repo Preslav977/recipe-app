@@ -31,6 +31,14 @@ export const HomePage = () => {
     (state: RootState) => state.getAllRecipesThunk,
   );
 
+  const getDeletedRecipeId = useSelector(
+    (state: RootState) => state.deleteRecipeThunk.id,
+  );
+
+  const newFilteredAllRecipesArray = recipes.filter(
+    (recipe) => recipe.id !== getDeletedRecipeId,
+  );
+
   const { favorites } = useSelector(
     (state: RootState) => state.getUserFavoriteRecipeListThunk,
   );
@@ -44,12 +52,13 @@ export const HomePage = () => {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
         marginTop: "0.5em",
         padding: "1.5em",
       }}
     >
-      <Typography variant="h2">Dashboard</Typography>
+      <Typography variant="h2" fontSize={"2rem"}>
+        Dashboard
+      </Typography>
       <Box sx={{ display: "flex", gap: "1em", flexWrap: "wrap" }}>
         <Paper
           sx={{
@@ -61,7 +70,7 @@ export const HomePage = () => {
             color: "white",
           }}
         >
-          {recipes.length}
+          {newFilteredAllRecipesArray.length}
           <Typography variant="body2">All Recipes</Typography>
           <Link
             style={{

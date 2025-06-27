@@ -32,7 +32,13 @@ export const FavouriteRecipesPage = () => {
 
   return (
     <Container sx={{ mb: 6 }}>
-      <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
+      <Typography
+        gutterBottom
+        variant="h2"
+        align="center"
+        fontSize={"2rem"}
+        sx={{ mt: 2 }}
+      >
         Favorite Recipes
       </Typography>
       {loading === "pending" && <LoadingSpinner />}

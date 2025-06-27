@@ -27,9 +27,9 @@ interface RecipeDetailsProps {
 }
 
 export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
-  const { uid } = useSelector((state: RootState) => state.userLoginThunk) as {
-    uid: string;
-  };
+  const { uid, emailVerified } = useSelector(
+    (state: RootState) => state.userLoginThunk,
+  ) as { uid: string; emailVerified: boolean };
 
   const { id } = useParams() as { id: string };
 
@@ -118,10 +118,40 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
           </Typography>
         </CardContent>
       </Card>
-      <AddFavoriteRecipeButton userId={uid} recipeId={id} />
-      <RemoveFavoriteRecipeButton userId={uid} recipeId={id} />
-      <Link to={`/updateRecipe/${id}`}>Edit Recipe</Link>
-      <RemoveRecipeButton recipeId={id} />
+      {emailVerified ? (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5em",
+          }}
+        >
+          <AddFavoriteRecipeButton userId={uid} recipeId={id} />
+          <RemoveFavoriteRecipeButton userId={uid} recipeId={id} />
+
+          <Link
+            style={{
+              padding: "8px 8px",
+              borderRadius: "4px",
+              textDecoration: "none",
+              color: "white",
+              backgroundColor: "#1976d2",
+              marginTop: "0.5em",
+              textTransform: "uppercase",
+              fontSize: " 0.875rem",
+              lineHeight: "1.75",
+            }}
+            to={`/updateRecipe/${id}`}
+          >
+            Edit Recipe
+          </Link>
+
+          <RemoveRecipeButton recipeId={id} />
+        </Box>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

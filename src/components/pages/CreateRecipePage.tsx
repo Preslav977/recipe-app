@@ -3,8 +3,14 @@ import { RecipeForm } from "../RecipeForm/RecipeForm";
 
 export const CreateRecipePage = () => {
   return (
-    <Container maxWidth="sm" sx={{ mt: 2, minHeight: "80vh" }}>
-      <Typography variant="h2" component="h2" gutterBottom align="center">
+    <Container maxWidth="sm" sx={{ mt: 2 }}>
+      <Typography
+        variant="h2"
+        component="h2"
+        fontSize={"2rem"}
+        gutterBottom
+        align="center"
+      >
         Create Recipe
       </Typography>
       <RecipeForm />

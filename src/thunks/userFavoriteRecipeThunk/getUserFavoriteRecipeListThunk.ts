@@ -21,6 +21,7 @@ const initialState: UserFavoriteList = {
   favorites: [],
   id: "",
   loading: "idle",
+  error: "",
 };
 
 export const getUserFavoriteRecipeListSlice = createSlice({
@@ -50,6 +51,9 @@ export const getUserFavoriteRecipeListSlice = createSlice({
       getUserFavoriteRecipeListThunk.rejected,
       (state, action) => {
         state.loading = "failed";
+
+        state.error =
+          "Failed to fetch the favorite recipes. Check if you are logged in!";
       },
     );
   },

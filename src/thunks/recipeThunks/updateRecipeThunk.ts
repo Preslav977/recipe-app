@@ -73,6 +73,9 @@ export const updateRecipeSlice = createSlice({
 
     builder.addCase(updateRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error =
+        "Failed to update a recipe. Check if all information is provided!";
     });
   },
 });

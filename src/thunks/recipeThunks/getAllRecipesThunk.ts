@@ -42,6 +42,8 @@ export const getRecipesSlice = createSlice({
 
     builder.addCase(getAllRecipesThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error = "Failed to fetch the recipes. Check if they exists!";
     });
   },
 });

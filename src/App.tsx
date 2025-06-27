@@ -4,6 +4,7 @@ import store from "./store/store";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
 import { Navigation } from "./components/Navigation/Navigation";
+import { ErrorDialog } from "./components/Dialogs/ErrorDialog";
 
 function App() {
   return (
