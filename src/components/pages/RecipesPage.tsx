@@ -24,7 +24,7 @@ export const RecipesPage = () => {
     (state: RootState) => state.deleteRecipeThunk.id,
   );
 
-  const newFilteredArray = allRecipes.filter(
+  const newFilteredAllRecipesArray = allRecipes.filter(
     (recipe) => recipe.id !== getDeletedRecipeId,
   );
 
@@ -45,7 +45,7 @@ export const RecipesPage = () => {
           justifyContent: { xs: "center", md: "flex-start" },
         }}
       >
-        {newFilteredArray.map((recipe, index) => (
+        {newFilteredAllRecipesArray.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} path="recipe" />
         ))}
       </Box>

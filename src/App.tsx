@@ -3,12 +3,12 @@ import { Provider } from "react-redux";
 import store from "./store/store";
 import { Outlet } from "react-router-dom";
 import Footer from "./components/Footer/Footer";
-import Navbar from "./components/Navigation/Navbar";
+import { Navigation } from "./components/Navigation/Navigation";
 
 function App() {
   return (
     <Provider store={store}>
-      <Navbar />
+      <Navigation />
       <Outlet />
       <Footer />
     </Provider>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ElementType, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -24,6 +24,7 @@ import CreateIcon from "@mui/icons-material/Create";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import logo from "../../assets/logo.png";
+
 import { Logout } from "@mui/icons-material";
 
 const navItems = [
@@ -40,10 +41,15 @@ const navItems = [
   { title: "Log Out", path: "", icon: <Logout /> },
 ];
 
-const Navbar = () => {
+interface ListItemButtonProps {
+  component: ElementType;
+  path: string;
+}
+
+export const Navigation = () => {
   const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(936));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
 
   const toggleDrawer = (open: boolean) => () => {
@@ -64,8 +70,17 @@ const Navbar = () => {
           padding: 1,
         }}
       >
-        <img src={logo} alt="App Logo" style={{ width: 32, height: 32 }} />
-        <Typography variant="h1" color="textPrimary">
+        <img
+          src={logo}
+          alt="App Logo"
+          style={{ width: 32, height: 32, marginLeft: "0.3rem" }}
+        />
+        <Typography
+          variant="h1"
+          color="textPrimary"
+          fontSize={"1.25rem"}
+          marginLeft={"1.3em"}
+        >
           Recipe App
         </Typography>
       </Box>
@@ -194,5 +209,3 @@ const Navbar = () => {
     </AppBar>
   );
 };
-
-export default Navbar;

@@ -42,7 +42,7 @@ export const getUserFavoriteRecipeListSlice = createSlice({
 
         state.id = id;
 
-        state.favorites = [...state.favorites, ...favorites];
+        state.favorites = [...favorites];
       },
     );
 

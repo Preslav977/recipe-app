@@ -38,10 +38,13 @@ export const removeRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const getAllNewFilteredUserRecipeIdsFromFavoriteList = action.payload;
 
-        const [firstRecipeId, ...rest] =
-          getAllNewFilteredUserRecipeIdsFromFavoriteList;
+        console.log(getAllNewFilteredUserRecipeIdsFromFavoriteList);
 
-        state.favorites = [...state.favorites, firstRecipeId, ...rest];
+        const testing = state.favorites.filter(
+          (id) => !getAllNewFilteredUserRecipeIdsFromFavoriteList?.includes(id),
+        );
+
+        state.favorites = testing;
       },
     );
 

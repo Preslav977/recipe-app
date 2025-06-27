@@ -40,7 +40,7 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
 
-        state.favorites = [...state.favorites, firstRecipeId, ...rest];
+        state.favorites = [firstRecipeId, ...rest];
       },
     );
 

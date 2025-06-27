@@ -13,7 +13,7 @@ export const removeFavoriteRecipe = async (
     if (userSnap.exists()) {
       const favoriteList = userSnap.data().favorites;
 
-      const newFavoriteList = favoriteList.filter(
+      const newFavoriteList: string[] = favoriteList.filter(
         (recipe: string) => recipe !== recipeId,
       );
 
@@ -21,6 +21,7 @@ export const removeFavoriteRecipe = async (
 
       return newFavoriteList;
     }
+    // return [];
   } catch (error) {
     throw error;
   }

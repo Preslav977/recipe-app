@@ -6,6 +6,7 @@ import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk
 import Box from "@mui/material/Box";
 import { Container, Typography } from "@mui/material";
 import { getUserFavoriteRecipeListThunk } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
+import { useParams } from "react-router-dom";
 
 export const FavouriteRecipesPage = () => {
   const dispatch = useDispatch<AppDispatch>();

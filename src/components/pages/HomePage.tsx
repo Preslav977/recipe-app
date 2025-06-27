@@ -7,6 +7,8 @@ import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk
 import { getUserFavoriteRecipeListThunk } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
 import { emailVerification } from "../../firebaseConfig/firebaseconfig";
 import { useNavigate } from "react-router-dom";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import { SvgIcon } from "@mui/material";
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -21,21 +23,23 @@ export const HomePage = () => {
     dispatch(getAllRecipesThunk());
 
     dispatch(getUserFavoriteRecipeListThunk(`${uid}`));
-  });
 
-  const getAllRecipesLength = useSelector(
-    (state: RootState) => state.getAllRecipesThunk.recipes.length,
+    dispatch(getUserFavoriteRecipeListThunk(`${uid}`));
+  }, [dispatch, uid]);
+
+  const { recipes } = useSelector(
+    (state: RootState) => state.getAllRecipesThunk,
   );
 
-  const getAllMyRecipesLength = useSelector(
-    (state: RootState) =>
-      state.getAllRecipesThunk.recipes.filter(
-        (myRecipes) => myRecipes.authorId === uid,
-      ).length,
+  const { favorites } = useSelector(
+    (state: RootState) => state.getUserFavoriteRecipeListThunk,
   );
 
-  //later get all my favorites recipes length
-  //  const getAllMyFavoriteRecipes = useSelector((state: RootState) => )
+  const favoriteRecipes = recipes.filter((recipe) =>
+    favorites.includes(recipe.id!),
+  );
+
+  const myRecipes = recipes.filter((recipe) => recipe.authorId === uid);
 
   return (
     <Box
@@ -45,11 +49,10 @@ export const HomePage = () => {
         padding: "1.5em",
       }}
     >
-      <Typography variant="h3">Dashboard</Typography>
+      <Typography variant="h2">Dashboard</Typography>
       <Box sx={{ display: "flex", gap: "1em", flexWrap: "wrap" }}>
         <Paper
           sx={{
-            outline: "2px solid white",
             maxWidth: 250,
             backgroundColor: "#1976d2",
             width: "100%",
@@ -58,19 +61,24 @@ export const HomePage = () => {
             color: "white",
           }}
         >
-          {getAllRecipesLength}
+          {recipes.length}
           <Typography variant="body2">All Recipes</Typography>
           <Link
-            style={{ textDecoration: "none", color: "white" }}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              display: "flex",
+              gap: "0.5em",
+            }}
             to="/recipes"
           >
             More information
+            <SvgIcon component={ArrowCircleRightIcon} />
           </Link>
         </Paper>
 
         <Paper
           sx={{
-            outline: "2px solid white",
             maxWidth: 250,
             backgroundColor: "#1976d2",
             width: "100%",
@@ -79,19 +87,24 @@ export const HomePage = () => {
             color: "white",
           }}
         >
-          {getAllMyRecipesLength}
+          {myRecipes.length}
           <Typography variant="body2">My Recipes</Typography>
           <Link
-            style={{ textDecoration: "none", color: "white" }}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              display: "flex",
+              gap: "0.5em",
+            }}
             to="/recipes"
           >
             More information
+            <SvgIcon component={ArrowCircleRightIcon} />
           </Link>
         </Paper>
 
         <Paper
           sx={{
-            outline: "2px solid white",
             backgroundColor: "#1976d2",
             maxWidth: 250,
             width: "100%",
@@ -100,12 +113,19 @@ export const HomePage = () => {
             color: "white",
           }}
         >
-          1<Typography variant="body2">Favorite Recipes</Typography>
+          {favoriteRecipes.length}
+          <Typography variant="body2">Favorite Recipes</Typography>
           <Link
-            style={{ textDecoration: "none", color: "white" }}
+            style={{
+              textDecoration: "none",
+              color: "white",
+              display: "flex",
+              gap: "0.5em",
+            }}
             to="/favoriteRecipes"
           >
             More information
+            <SvgIcon component={ArrowCircleRightIcon} />
           </Link>
         </Paper>
       </Box>
