@@ -11,7 +11,6 @@ import { FavouriteRecipesPage } from "../components/Pages/FavouriteRecipesPage";
 import { RecipeDetailsPage } from "../components/Pages/RecipeDetailsPage";
 import { ErrorPage } from "../components/ErrorPage/ErrorPage";
 
-
 const routes = [
   {
     path: "/",
@@ -70,10 +69,6 @@ const routes = [
             <EditRecipePage />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: "/deleteRecipe/:recipeId",
-        element: <ProtectedRoute>''</ProtectedRoute>,
       },
       {
         path: "/favoriteRecipes",

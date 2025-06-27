@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRecipe } from "../../firebaseConfig/firebaseconfig";
 import { Recipe } from "../../interfaces/Recipe/Recipe";
-import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
 
 export const getRecipeThunk = createAsyncThunk(
   "recipes/getRecipe",

@@ -30,8 +30,7 @@ const Footer = () => {
           }}
         >
           <Typography variant="body2" align="center" sx={{ width: "100%" }}>
-            © {new Date().getFullYear()} Grow It Recipe App. All rights
-            reserved.
+            © {new Date().getFullYear()} Recipe App. All rights reserved.
           </Typography>
         </Toolbar>
       </Box>
