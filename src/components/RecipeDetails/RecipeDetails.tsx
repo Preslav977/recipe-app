@@ -13,14 +13,25 @@ import {
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RecipeFromFireStore } from "../../interfaces/Recipe/Recipe";
+import { AddFavoriteRecipeButton } from "../AddFavoriteRecipeButton/AddFavoriteRecipeButton";
+import { RemoveFavoriteRecipeButton } from "../RemoveFavoriteRecipeButton/RemoveFavoriteRecipeButton";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
 
 interface RecipeDetailsProps {
   recipe: RecipeFromFireStore;
 }
 
 export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
+  const { uid } = useSelector((state: RootState) => state.userLoginThunk) as {
+    uid: string;
+  };
+
+  const { id } = useParams() as { id: string };
+
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 2 }}>
       <Typography variant="h4" component="h1" gutterBottom align="center">
@@ -106,6 +117,7 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
           </Typography>
         </CardContent>
       </Card>
+      <AddFavoriteRecipeButton userId={uid} recipeId={id} />
     </Container>
   );
 };

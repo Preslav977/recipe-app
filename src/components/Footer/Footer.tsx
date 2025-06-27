@@ -13,7 +13,6 @@ const Footer = () => {
           color: "white",
           py: 2,
           width: "100%",
-          boxSizing: "border-box",
           position: "fixed",
           bottom: 0,
           left: 0,

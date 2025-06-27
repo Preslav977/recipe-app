@@ -11,7 +11,7 @@ export const RecipeDetailsPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const recipe = useSelector((state: RootState) => state.getRecipeThunk);
-  console.log(recipe);
+  // console.log(recipe);
   useEffect(() => {
     if (recipeId) {
       dispatch(getRecipeThunk(recipeId));
