@@ -2,14 +2,18 @@ import { useFormik } from "formik";
 import { Box, Paper, Typography, TextField, Button } from "@mui/material";
 import { validationSchema } from "./validationSchema";
 import { requestPasswordReset } from "../../services/auth/passwordReset";
+import { useNavigate } from "react-router-dom";
 
 export const ForgotPasswordForm = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: { email: "" },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         await requestPasswordReset(values.email);
+        navigate("/login");
       } catch (err) {
         console.log(err);
       }

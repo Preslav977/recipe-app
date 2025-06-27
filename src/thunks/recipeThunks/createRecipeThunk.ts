@@ -77,6 +77,22 @@ export const createRecipeSlice = createSlice({
 
       state.error =
         "Failed to create the recipe. Check if the correct data is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.authorId = "";
     });
   },
 });

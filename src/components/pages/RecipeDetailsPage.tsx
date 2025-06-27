@@ -23,7 +23,16 @@ export const RecipeDetailsPage = () => {
     <>
       {recipe.loading === "pending" && <LoadingSpinner />}
       {recipe.loading === "failed" && (
-        <Typography>Error: {recipe.error}</Typography>
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {recipe.error}
+        </Typography>
       )}
       <RecipeDetails recipe={recipe} />
     </>

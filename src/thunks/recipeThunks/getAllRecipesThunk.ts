@@ -40,6 +40,8 @@ export const getRecipesSlice = createSlice({
       state.loading = "failed";
 
       state.error = "Failed to fetch the recipes. Check if they exists!";
+
+      state.recipes = [];
     });
   },
 });

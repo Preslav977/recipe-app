@@ -1,16 +1,22 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { User } from "../../interfaces/User/User";
 import { signOutUser } from "../../firebaseConfig/firebaseconfig";
+import { persistor } from "../../store/store";
+import { logout } from "./userLoginThunk";
 
-export const userLogoutThunk = createAsyncThunk("user/logout", async () => {
-  try {
-    const response = await signOutUser();
-
-    return response;
-  } catch (error) {
-    throw error;
-  }
-});
+export const userLogoutThunk = createAsyncThunk(
+  "user/logout",
+  async (_, { dispatch }) => {
+    try {
+      const response = await signOutUser();
+      await persistor.purge();
+      dispatch(logout());
+      return response;
+    } catch (error) {
+      throw error;
+    }
+  },
+);
 
 const initialState: User = {
   uid: "",
@@ -24,7 +30,7 @@ const initialState: User = {
 };
 
 export const userLogoutSlice = createSlice({
-  name: "userLogin",
+  name: "userLogout",
   initialState,
   reducers: {},
 

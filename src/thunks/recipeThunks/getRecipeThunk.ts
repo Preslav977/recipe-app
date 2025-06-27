@@ -77,6 +77,24 @@ export const getRecipeSlice = createSlice({
       state.loading = "failed";
 
       state.error = "Failed to fetch a recipe. Check if an ID is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.createdAt = "";
+
+      state.authorId = "";
     });
   },
 });

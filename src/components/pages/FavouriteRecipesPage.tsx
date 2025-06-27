@@ -42,9 +42,28 @@ export const FavouriteRecipesPage = () => {
         Favorite Recipes
       </Typography>
       {loading === "pending" && <LoadingSpinner />}
-      {loading === "failed" && <Typography>Error: {error}</Typography>}
+      {loading === "failed" && (
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {error}
+        </Typography>
+      )}
       {favouriteRecipes.length === 0 && (
-        <Typography>No Favourite Recipes </Typography>
+        <Typography
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          No Favourite Recipes{" "}
+        </Typography>
       )}
 
       <Box

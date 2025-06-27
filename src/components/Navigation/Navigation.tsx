@@ -30,11 +30,35 @@ import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
 import { Logout } from "@mui/icons-material";
 import { useSelector } from "react-redux";
 
-function signOutUser() {
-  const dispatch = useDispatch<AppDispatch>();
-
-  dispatch(userLogoutThunk());
-}
+const navItems = [
+  { title: "Home", icon: <HomeIcon />, hasMethod: false },
+  {
+    title: "Recipes",
+    path: "/recipes",
+    icon: <MenuBookIcon />,
+    hasMethod: false,
+  },
+  {
+    title: "Favorite recipes",
+    path: "/favoriteRecipes",
+    icon: <FavoriteIcon />,
+    hasMethod: false,
+  },
+  {
+    title: "Create recipe",
+    path: "/createRecipe",
+    icon: <CreateIcon />,
+    hasMethod: false,
+  },
+  { title: "Login", path: "/login", icon: <VpnKeyIcon />, hasMethod: false },
+  {
+    title: "Signup",
+    path: "/signup",
+    icon: <HowToRegIcon />,
+    hasMethod: false,
+  },
+  { title: "Log Out", path: "/login", icon: <Logout />, hasMethod: true },
+];
 
 interface ListItemButtonProps {
   component: ElementType;
@@ -42,34 +66,23 @@ interface ListItemButtonProps {
 }
 
 export const Navigation = () => {
-  const { IsUserLoggedIn } = useSelector(
-    (state: RootState) => state.userLoginThunk,
-  );
+  const { uid } = useSelector((state: RootState) => state.userLoginThunk);
 
-  const navItems = [
-    { title: "Home", icon: <HomeIcon /> },
-    { title: "Recipes", path: "/recipes", icon: <MenuBookIcon /> },
-    {
-      title: "Favorite recipes",
-      path: "/favoriteRecipes",
-      icon: <FavoriteIcon />,
-    },
-    { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
-    { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
-    { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
-    {
-      title: "Log Out",
-      path: "/login",
-      icon: <Logout />,
-      function: signOutUser(),
-    },
-  ];
+  const newNavItems = navItems.filter((item) => {
+    if (uid) {
+      return item.title !== "Login" && item.title !== "Signup";
+    }
+    return item.title == "Login" || item.title == "Signup";
+  });
 
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const handleLogout = async () => {
+    dispatch(userLogoutThunk());
+  };
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
@@ -103,9 +116,35 @@ export const Navigation = () => {
         </Typography>
       </Box>
       <List>
-        {navItems.map(({ title, path, icon }) => {
+        {newNavItems.map(({ title, path, icon, hasMethod }) => {
           const isActive = location.pathname === path;
-          return (
+          return hasMethod ? (
+            <ListItem key={path} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={path}
+                selected={isActive}
+                onClick={handleLogout}
+              >
+                <ListItemIcon
+                  sx={{
+                    color: isActive ? "secondary.main" : "inherit",
+                    winWidth: "unset",
+                    mr: 0.01,
+                  }}
+                >
+                  {icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={title}
+                  sx={{
+                    fontWeight: isActive ? "bold" : "normal",
+                    color: isActive ? "secondary.main" : "inherit",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ) : (
             <ListItem key={path} disablePadding>
               <ListItemButton component={Link} to={path} selected={isActive}>
                 <ListItemIcon
@@ -193,9 +232,34 @@ export const Navigation = () => {
           </>
         ) : (
           <Box sx={{ display: "flex", gap: 1 }}>
-            {navItems.map(({ title, path, icon }) => {
+            {newNavItems.map(({ title, path, icon, hasMethod }) => {
               const isActive = location.pathname === path;
-              return (
+              return hasMethod ? (
+                <Button
+                  key={title}
+                  component={Link}
+                  onClick={handleLogout}
+                  to={path}
+                  color={isActive ? "secondary" : "inherit"}
+                  sx={{
+                    fontWeight: isActive ? "bold" : "normal",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(77, 47, 167, 0.1)",
+                      color: "darkblue",
+                    },
+                  }}
+                >
+                  {React.cloneElement(icon, {
+                    fontSize: "small",
+                    color: isActive ? "secondary" : "darkblue",
+                  })}
+                  {title}
+                </Button>
+              ) : (
                 <Button
                   key={title}
                   component={Link}

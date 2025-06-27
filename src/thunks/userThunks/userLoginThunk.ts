@@ -36,7 +36,9 @@ const initialState: User = {
 export const userLoginSlice = createSlice({
   name: "userLogin",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: () => initialState,
+  },
 
   extraReducers: (builder) => {
     builder.addCase(userLoginThunk.fulfilled, (state, action) => {
@@ -65,4 +67,5 @@ export const userLoginSlice = createSlice({
   },
 });
 
+export const { logout } = userLoginSlice.actions;
 export default userLoginSlice.reducer;

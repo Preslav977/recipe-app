@@ -74,6 +74,22 @@ export const updateRecipeSlice = createSlice({
 
       state.error =
         "Failed to update a recipe. Check if all information is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.authorId = "";
     });
   },
 });

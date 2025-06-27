@@ -41,8 +41,29 @@ export const RecipesPage = () => {
         All Recipes
       </Typography>
       {loading === "pending" && <LoadingSpinner />}
-      {loading === "failed" && <Typography>Error: {error}</Typography>}
-      {allRecipes.length === 0 && <Typography>No Recipes Yet</Typography>}
+      {loading === "failed" && (
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {error}
+        </Typography>
+      )}
+      {allRecipes.length === 0 && (
+        <Typography
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          No Recipes Yet
+        </Typography>
+      )}
 
       <Box
         sx={{

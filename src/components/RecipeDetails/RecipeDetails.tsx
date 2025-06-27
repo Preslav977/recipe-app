@@ -35,7 +35,7 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 2 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
+      <Typography variant="h4" component="h4" gutterBottom align="center">
         {recipe.title}
       </Typography>
 
@@ -90,7 +90,7 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
             </Box>
           </Box>
           <Divider sx={{ mb: 1 }} />
-          <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+          <Typography variant="h5" gutterBottom sx={{ mb: 0 }}>
             Necessary products
           </Typography>
           <List
