@@ -130,24 +130,30 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
           <AddFavoriteRecipeButton userId={uid} recipeId={id} />
           <RemoveFavoriteRecipeButton userId={uid} recipeId={id} />
 
-          <Link
-            style={{
-              padding: "8px 8px",
-              borderRadius: "4px",
-              textDecoration: "none",
-              color: "white",
-              backgroundColor: "#1976d2",
-              marginTop: "0.5em",
-              textTransform: "uppercase",
-              fontSize: " 0.875rem",
-              lineHeight: "1.75",
-            }}
-            to={`/updateRecipe/${id}`}
-          >
-            Edit Recipe
-          </Link>
+          {uid === recipe.authorId ? (
+            <>
+              <Link
+                style={{
+                  padding: "8px 8px",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                  color: "white",
+                  backgroundColor: "#1976d2",
+                  marginTop: "0.5em",
+                  textTransform: "uppercase",
+                  fontSize: " 0.875rem",
+                  lineHeight: "1.75",
+                }}
+                to={`/updateRecipe/${id}`}
+              >
+                Edit Recipe
+              </Link>
 
-          <RemoveRecipeButton recipeId={id} />
+              <RemoveRecipeButton recipeId={id} />
+            </>
+          ) : (
+            ""
+          )}
         </Box>
       ) : (
         ""

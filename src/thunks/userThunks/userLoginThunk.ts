@@ -44,8 +44,6 @@ export const userLoginSlice = createSlice({
 
       const userLogin = action.payload;
 
-      // console.log(userLogin);
-
       const { email, uid, emailVerified } = userLogin;
 
       state.email = email!;

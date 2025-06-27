@@ -41,8 +41,6 @@ export const updateRecipeSlice = createSlice({
 
       const recipePayload: Recipe = action.payload!;
 
-      console.log(recipePayload);
-
       const {
         title,
         description,

@@ -24,22 +24,17 @@ import CreateIcon from "@mui/icons-material/Create";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import logo from "../../assets/logo.png";
-
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
 import { Logout } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 
-const navItems = [
-  { title: "Home", icon: <HomeIcon /> },
-  { title: "Recipes", path: "/recipes", icon: <MenuBookIcon /> },
-  {
-    title: "Favorite recipes",
-    path: "/favoriteRecipes",
-    icon: <FavoriteIcon />,
-  },
-  { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
-  { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
-  { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
-  { title: "Log Out", path: "", icon: <Logout /> },
-];
+function signOutUser() {
+  const dispatch = useDispatch<AppDispatch>();
+
+  dispatch(userLogoutThunk());
+}
 
 interface ListItemButtonProps {
   component: ElementType;
@@ -47,6 +42,29 @@ interface ListItemButtonProps {
 }
 
 export const Navigation = () => {
+  const { IsUserLoggedIn } = useSelector(
+    (state: RootState) => state.userLoginThunk,
+  );
+
+  const navItems = [
+    { title: "Home", icon: <HomeIcon /> },
+    { title: "Recipes", path: "/recipes", icon: <MenuBookIcon /> },
+    {
+      title: "Favorite recipes",
+      path: "/favoriteRecipes",
+      icon: <FavoriteIcon />,
+    },
+    { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
+    { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
+    { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
+    {
+      title: "Log Out",
+      path: "/login",
+      icon: <Logout />,
+      function: signOutUser(),
+    },
+  ];
+
   const location = useLocation();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));

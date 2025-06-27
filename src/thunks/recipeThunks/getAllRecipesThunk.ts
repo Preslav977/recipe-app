@@ -33,11 +33,7 @@ export const getRecipesSlice = createSlice({
 
       const recipesPayload = action.payload;
 
-      recipesPayload.forEach((recipes) => {
-        if (!state.recipes.some((obj) => obj.title === recipes.title)) {
-          state.recipes = [...state.recipes, recipes];
-        }
-      });
+      state.recipes = recipesPayload;
     });
 
     builder.addCase(getAllRecipesThunk.rejected, (state, action) => {
