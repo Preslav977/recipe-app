@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { removeRecipeUserFavoriteRecipeListThunk } from "../../thunks/userFavoriteRecipeThunk/removeRecipeUserFavoriteRecipeListThunk";
+import { Button } from "@mui/material";
 
 export function RemoveFavoriteRecipeButton({
   userId,
@@ -21,6 +22,16 @@ export function RemoveFavoriteRecipeButton({
   }
 
   return (
-    <button onClick={() => removeFromFavoriteRecipe(userId, recipeId)}></button>
+    <Button
+      sx={{
+        outline: "2px solid #1976d2",
+        backgroundColor: "#1976d2",
+        color: "white",
+        marginTop: "0.5em",
+      }}
+      onClick={() => removeFromFavoriteRecipe(userId, recipeId)}
+    >
+      Remove favorite
+    </Button>
   );
 }

@@ -19,6 +19,15 @@ export const RecipesPage = () => {
   const allRecipes = useSelector(
     (state: RootState) => state.getAllRecipesThunk.recipes,
   );
+
+  const getDeletedRecipeId = useSelector(
+    (state: RootState) => state.deleteRecipeThunk.id,
+  );
+
+  const newFilteredArray = allRecipes.filter(
+    (recipe) => recipe.id !== getDeletedRecipeId,
+  );
+
   return (
     <Container sx={{ mb: 6 }}>
       <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
@@ -36,7 +45,7 @@ export const RecipesPage = () => {
           justifyContent: { xs: "center", md: "flex-start" },
         }}
       >
-        {allRecipes.map((recipe, index) => (
+        {newFilteredArray.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} path="recipe" />
         ))}
       </Box>

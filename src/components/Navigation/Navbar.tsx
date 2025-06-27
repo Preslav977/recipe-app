@@ -37,7 +37,7 @@ const navItems = [
   { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
   { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
   { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
-  { title: "Log Out", path: "/login", icon: <Logout /> },
+  { title: "Log Out", path: "", icon: <Logout /> },
 ];
 
 const Navbar = () => {
@@ -113,7 +113,7 @@ const Navbar = () => {
         }}
       >
         <Link
-          to={"/recipes"}
+          to={"/"}
           style={{
             display: "flex",
             alignItems: "center",
@@ -164,7 +164,7 @@ const Navbar = () => {
               const isActive = location.pathname === path;
               return (
                 <Button
-                  key={path}
+                  key={title}
                   component={Link}
                   to={path}
                   color={isActive ? "secondary" : "inherit"}

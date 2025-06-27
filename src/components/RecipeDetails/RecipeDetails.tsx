@@ -13,13 +13,14 @@ import {
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { RecipeFromFireStore } from "../../interfaces/Recipe/Recipe";
 import { AddFavoriteRecipeButton } from "../AddFavoriteRecipeButton/AddFavoriteRecipeButton";
 import { RemoveFavoriteRecipeButton } from "../RemoveFavoriteRecipeButton/RemoveFavoriteRecipeButton";
 
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { RemoveRecipeButton } from "../RemoveRecipeButton/RemoveRecipeButton";
 
 interface RecipeDetailsProps {
   recipe: RecipeFromFireStore;
@@ -118,6 +119,8 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
         </CardContent>
       </Card>
       <AddFavoriteRecipeButton userId={uid} recipeId={id} />
+      <RemoveFavoriteRecipeButton userId={uid} recipeId={id} />
+      <RemoveRecipeButton recipeId={id} />
     </Container>
   );
 };

@@ -58,7 +58,9 @@ export const getRecipeSlice = createSlice({
 
       state.instructions = instructions;
 
-      state.ingredients = [...ingredients];
+      if (ingredients !== undefined) {
+        state.ingredients = [...ingredients];
+      }
 
       state.cookingTimeInMinutes = cookingTimeInMinutes;
 

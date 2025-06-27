@@ -15,11 +15,13 @@ export const deleteRecipeThunk = createAsyncThunk(
 );
 
 interface DeletedRecipe {
+  id: string;
   loading?: "idle" | "pending" | "succeeded" | "failed";
   error: string;
 }
 
 const initialState: DeletedRecipe = {
+  id: "",
   loading: "idle",
   error: "",
 };
@@ -32,6 +34,10 @@ export const deleteRecipeSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(deleteRecipeThunk.fulfilled, (state, action) => {
       state.loading = "succeeded";
+
+      const id = action.payload;
+
+      state.id = id;
     });
 
     builder.addCase(deleteRecipeThunk.rejected, (state, action) => {

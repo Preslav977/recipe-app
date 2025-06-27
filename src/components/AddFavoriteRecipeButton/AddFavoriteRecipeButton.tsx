@@ -31,7 +31,7 @@ export function AddFavoriteRecipeButton({
       }}
       onClick={() => addToFavoriteRecipe(userId, recipeId)}
     >
-      Add to favorite
+      Favorite
     </Button>
   );
 }
