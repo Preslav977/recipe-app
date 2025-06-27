@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk";
 import Box from "@mui/material/Box";
 import { Container, Typography } from "@mui/material";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const RecipesPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -33,7 +34,7 @@ export const RecipesPage = () => {
       <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
         All Recipes
       </Typography>
-      {loading === "pending" && <Typography>Loading...</Typography>}
+      {loading === "pending" && <LoadingSpinner />}
       {loading === "failed" && <Typography>Error: {error}</Typography>}
       {allRecipes.length === 0 && <Typography>No Recipes Yet</Typography>}
 

@@ -20,7 +20,7 @@ export const updateRecipeThunk = createAsyncThunk(
 const initialState: Recipe = {
   title: "",
   description: "",
-  ingredients: [""],
+  ingredients: [],
   instructions: "",
   cookingTimeInMinutes: 0,
   servings: 0,
@@ -60,7 +60,7 @@ export const updateRecipeSlice = createSlice({
 
       state.instructions = instructions;
 
-      state.ingredients = [...state.ingredients, ...ingredients];
+      state.ingredients = [...ingredients];
 
       state.cookingTimeInMinutes = cookingTimeInMinutes;
 

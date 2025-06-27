@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { Backdrop, CircularProgress, Button, Box } from "@mui/material";
+import { Backdrop, CircularProgress } from "@mui/material";
 
-const LoadingSpinner = () => {
+export const LoadingSpinner = () => {
   return (
     <Backdrop
       open={true}
@@ -14,31 +13,3 @@ const LoadingSpinner = () => {
     </Backdrop>
   );
 };
-
-const LoaderTest = () => {
-  const [loading, setLoading] = useState(false);
-
-  const showLoader = () => {
-    setLoading(true);
-    setTimeout(() => setLoading(false), 3000);
-  };
-
-  return (
-    <div style={{ padding: "2rem" }}>
-      <Button variant="contained" onClick={showLoader}>
-        Loader
-      </Button>
-      {loading && <LoadingSpinner />}
-    </div>
-  );
-};
-
-export function FullScreenLoaderSimple() {
-  return (
-    <Box sx={{ display: "flex" }}>
-      <CircularProgress />
-    </Box>
-  );
-}
-
-export default LoaderTest;

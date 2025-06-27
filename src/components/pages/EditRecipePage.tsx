@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const EditRecipePage = () => {
   const { recipeId } = useParams();
@@ -18,7 +19,7 @@ export const EditRecipePage = () => {
   }, [dispatch, recipeId]);
 
   if (recipe.loading === "idle" || recipe.loading === "pending") {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (

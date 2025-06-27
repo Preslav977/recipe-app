@@ -5,6 +5,7 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useEffect } from "react";
 import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
 import Typography from "@mui/material/Typography";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const RecipeDetailsPage = () => {
   const { id: recipeId } = useParams();
@@ -20,7 +21,7 @@ export const RecipeDetailsPage = () => {
 
   return (
     <>
-      {recipe.loading === "pending" && <Typography>Loading...</Typography>}
+      {recipe.loading === "pending" && <LoadingSpinner />}
       {recipe.loading === "failed" && (
         <Typography>Error: {recipe.error}</Typography>
       )}
