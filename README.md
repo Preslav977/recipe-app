@@ -24,12 +24,12 @@ measurementId: ""`
 
 To learn more about React, Redux, Firebase, take a look a the following resources:
 
-[React Documentation]('https://react.dev/') - learn about React here.
+[React Documentation](https://react.dev/) - learn about React here.
 
-[Redux Toolkit Documentation]('https://redux-toolkit.js.org/') - learn about Redux Toolkit.
+[Redux Toolkit Documentation](https://redux-toolkit.js.org/) - learn about Redux Toolkit.
 
-[Firebase Documentation]('https://firebase.google.com/docs') - learn about Firebase.
+[Firebase Documentation](https://firebase.google.com/docs) - learn about Firebase.
 
 # Deploy on Vercel
 
-The easiest way to deploy your React application is to use [Vercel]('https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme').
+The easiest way to deploy your React application is to use [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme').
