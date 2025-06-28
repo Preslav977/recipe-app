@@ -42,6 +42,9 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
         <CardMedia
           component="img"
           height="250"
+          sx={{
+            objectFit: "cover",
+          }}
           image={recipe.imageURL}
           alt={recipe.title}
         />

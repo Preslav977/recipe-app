@@ -48,7 +48,7 @@ const SignUpForm = () => {
           }),
         );
         resetForm();
-        navigate("/login");
+        navigate("/");
       } catch (err) {
         throw err;
       } finally {

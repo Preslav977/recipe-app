@@ -27,7 +27,11 @@ const initialState: UserFavoriteList = {
 export const getUserFavoriteRecipeListSlice = createSlice({
   name: "user/getFavoriteRecipeList",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUserList(state) {
+      Object.assign(state, initialState);
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(
@@ -58,5 +62,5 @@ export const getUserFavoriteRecipeListSlice = createSlice({
     );
   },
 });
-
+export const { resetUserList } = getUserFavoriteRecipeListSlice.actions;
 export default getUserFavoriteRecipeListSlice.reducer;

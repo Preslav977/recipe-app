@@ -36,6 +36,7 @@ const LoginForm = () => {
             favorites: [],
           }),
         );
+
         navigate("/");
       } catch (e) {
         throw e;

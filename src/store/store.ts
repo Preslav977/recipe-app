@@ -12,7 +12,6 @@ import {
 import storage from "redux-persist/lib/storage";
 import userRegisterReducer from "../thunks/userThunks/userRegisterThunk";
 import userLoginReducer from "../thunks/userThunks/userLoginThunk";
-import userLogoutReducer from "../thunks/userThunks/userLogoutThunk";
 import createRecipeReducer from "../thunks/recipeThunks/createRecipeThunk";
 import getAllRecipesReducer from "../thunks/recipeThunks/getAllRecipesThunk";
 import getRecipeReducer from "../thunks/recipeThunks/getRecipeThunk";
@@ -21,11 +20,12 @@ import deleteRecipeReducer from "../thunks/recipeThunks/deleteRecipeThunk";
 import getUserFavoriteRecipeListReducer from "../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
 import addRecipeUserFavoriteRecipeListReducer from "../thunks/userFavoriteRecipeThunk/addRecipeUserFavoriteRecipeListThunk";
 import removeRecipeUserFavoriteRecipeListReducer from "../thunks/userFavoriteRecipeThunk/removeRecipeUserFavoriteRecipeListThunk";
+import userLogoutReducer from "../thunks/userThunks/userLogoutThunk";
 
 const rootReducer = combineReducers({
   userRegisterThunk: userRegisterReducer,
   userLoginThunk: userLoginReducer,
-  userLogoutThunk: userLogoutReducer,
+
   createRecipeThunk: createRecipeReducer,
   getAllRecipesThunk: getAllRecipesReducer,
   getRecipeThunk: getRecipeReducer,
@@ -35,6 +35,7 @@ const rootReducer = combineReducers({
   addRecipeUserFavoriteRecipeListThunk: addRecipeUserFavoriteRecipeListReducer,
   removeRecipeUserFavoriteRecipeListThunk:
     removeRecipeUserFavoriteRecipeListReducer,
+  userLogoutThunk: userLogoutReducer,
 });
 
 const persistConfig = {

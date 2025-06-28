@@ -1,7 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { addFavoriteRecipe } from "../../services/userFavoriteRecipes/addFavoriteRecipe";
 import { UserFavoriteList } from "../../interfaces/UserFavoriteList/UserFavoriteList";
-import { stat } from "fs";
 
 export const addRecipeUserFavoriteRecipeListThunk = createAsyncThunk(
   "user/addRecipeFavoriteRecipeList",
@@ -40,9 +39,17 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const getAllIdsFromFavoriteRecipeList = action.payload;
 
-        const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
+        const filteredNewIds = getAllIdsFromFavoriteRecipeList.map(
+          (recipeId: string) => {
+            if (!state.favorites.includes(recipeId)) {
+              state.favorites = [recipeId];
+            }
+          },
+        );
 
-        state.favorites = [firstRecipeId, ...rest];
+        // const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
+
+        // state.favorites = [firstRecipeId, ...rest];
       },
     );
 
@@ -53,6 +60,8 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
 
         state.error =
           "Failed to add a recipe to favorites. Check if an ID is provided!";
+
+        state.favorites = [];
       },
     );
   },

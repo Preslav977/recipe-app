@@ -12,13 +12,13 @@ Open [http://localhost:5173]('http://localhost:5173') with your browser to start
 
 Add .env file in the root of the project with these variables.
 
-`apiKey: "AIzaSyCR5mhyU7G4xIOgQL5ggA-8CI4zn0w2dHI",
-authDomain: "growit-25-recepies.firebaseapp.com",
-projectId: "growit-25-recepies",
-storageBucket: "growit-25-recepies.firebasestorage.app",
-messagingSenderId: "844733132204",
-appId: "1:844733132204:web:68a8ea718690dc853cde09",
-measurementId: "G-26L7JFV4GD"`
+`apiKey: "",
+authDomain: "",
+projectId: "",
+storageBucket: "",
+messagingSenderId: "",
+appId: "",
+measurementId: ""`
 
 # Learn more
 

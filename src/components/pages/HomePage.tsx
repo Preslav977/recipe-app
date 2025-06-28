@@ -11,6 +11,7 @@ import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
 import { SvgIcon } from "@mui/material";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 import { RecipeCard } from "../RecipeCard/RecipeCard";
+import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
 
 export const HomePage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -68,7 +69,7 @@ export const HomePage = () => {
             gap: "1em",
             flexWrap: "wrap",
             padding: "2em",
-            "@media (max-width: 650px)": {
+            "@media (min-width: 670px)": {
               padding: 0,
             },
           }}
@@ -167,6 +168,8 @@ export const HomePage = () => {
             <Button
               onClick={() => {
                 emailVerification();
+
+                dispatch(userLogoutThunk());
 
                 setTimeout(() => navigate("/login"), 2000);
               }}

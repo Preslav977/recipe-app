@@ -29,6 +29,8 @@ import { AppDispatch, RootState } from "../../store/store";
 import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
 import { Logout } from "@mui/icons-material";
 import { useSelector } from "react-redux";
+import { reset } from "../../thunks/recipeThunks/getAllRecipesThunk";
+import { resetUserList } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
 
 const navItems = [
   { title: "Home", icon: <HomeIcon />, hasMethod: false },
