@@ -16,12 +16,20 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 import { validationSchema } from "./validationSchema";
 import { userRegisterThunk } from "../../thunks/userThunks/userRegisterThunk";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const { error } = useSelector((state: RootState) => state.userRegisterThunk)!;
 
   const formik = useFormik({
     initialValues: {
@@ -40,7 +48,9 @@ const SignUpForm = () => {
           }),
         );
         resetForm();
+        navigate("/");
       } catch (err) {
+        throw err;
       } finally {
       }
     },
@@ -49,7 +59,7 @@ const SignUpForm = () => {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
+        minHeight: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -67,7 +77,7 @@ const SignUpForm = () => {
           position: "relative",
         }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom fontSize={"2rem"}>
           Sign Up
         </Typography>
         <Box
@@ -139,19 +149,21 @@ const SignUpForm = () => {
               ),
             }}
           />
-
+          <Typography variant="body2" sx={{ color: "red" }}>
+            {error ? error : ""}
+          </Typography>
           <Button type="submit" variant="contained" color="primary">
             Submit
           </Button>
 
           <Typography variant="body2" align="center">
             Already have an account?{" "}
-            <a
-              href="/login"
+            <Link
+              to="/login"
               style={{ color: "#1976d2", textDecoration: "none" }}
             >
               Login
-            </a>
+            </Link>
           </Typography>
         </Box>
       </Paper>

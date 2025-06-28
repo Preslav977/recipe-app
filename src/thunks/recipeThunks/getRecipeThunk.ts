@@ -1,8 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getRecipe } from "../../firebaseConfig/firebaseconfig";
 import { Recipe } from "../../interfaces/Recipe/Recipe";
-import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
 
 export const getRecipeThunk = createAsyncThunk(
   "recipes/getRecipe",
@@ -60,7 +58,9 @@ export const getRecipeSlice = createSlice({
 
       state.instructions = instructions;
 
-      state.ingredients = [...ingredients];
+      if (ingredients !== undefined) {
+        state.ingredients = [...ingredients];
+      }
 
       state.cookingTimeInMinutes = cookingTimeInMinutes;
 
@@ -75,6 +75,26 @@ export const getRecipeSlice = createSlice({
 
     builder.addCase(getRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error = "Failed to fetch a recipe. Check if an ID is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.createdAt = "";
+
+      state.authorId = "";
     });
   },
 });

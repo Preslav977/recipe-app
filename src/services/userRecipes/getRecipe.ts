@@ -11,7 +11,7 @@ export const getRecipe = async (
 
     if (!recipeSnap.exists()) {
       // return null;
-      console.log("Recipe doesn't exist");
+      // console.log("Recipe doesn't exist");
     }
 
     const recipe: RecipeFromFireStore = {

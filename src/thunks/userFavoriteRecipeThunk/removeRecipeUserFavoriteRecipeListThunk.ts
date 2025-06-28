@@ -38,10 +38,11 @@ export const removeRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const getAllNewFilteredUserRecipeIdsFromFavoriteList = action.payload;
 
-        const [firstRecipeId, ...rest] =
-          getAllNewFilteredUserRecipeIdsFromFavoriteList;
+        const filterRemoveRecipesIds = state.favorites.filter(
+          (id) => !getAllNewFilteredUserRecipeIdsFromFavoriteList?.includes(id),
+        );
 
-        state.favorites = [...state.favorites, firstRecipeId, ...rest];
+        state.favorites = filterRemoveRecipesIds;
       },
     );
 
@@ -49,6 +50,9 @@ export const removeRecipeUserFavoriteRecipeListSlice = createSlice({
       removeRecipeUserFavoriteRecipeListThunk.rejected,
       (state, action) => {
         state.loading = "failed";
+
+        state.error =
+          "Failed to remove favorite recipe. Check if an ID is provided!";
       },
     );
   },

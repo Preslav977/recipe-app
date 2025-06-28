@@ -2,16 +2,20 @@ import { useFormik } from "formik";
 import { Box, Paper, Typography, TextField, Button } from "@mui/material";
 import { validationSchema } from "./validationSchema";
 import { requestPasswordReset } from "../../services/auth/passwordReset";
+import { useNavigate } from "react-router-dom";
 
 export const ForgotPasswordForm = () => {
+  const navigate = useNavigate();
+
   const formik = useFormik({
     initialValues: { email: "" },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
         await requestPasswordReset(values.email);
+        navigate("/login");
       } catch (err) {
-        console.log(err);
+        throw err;
       }
     },
   });
@@ -19,7 +23,7 @@ export const ForgotPasswordForm = () => {
   return (
     <Box
       sx={{
-        minHeight: "80vh",
+        minHeight: "90vh",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -34,7 +38,7 @@ export const ForgotPasswordForm = () => {
         onSubmit={formik.handleSubmit}
         sx={{ maxWidth: 400, width: 1, p: 4, borderRadius: 2 }}
       >
-        <Typography variant="h4" align="center" gutterBottom>
+        <Typography variant="h2" align="center" gutterBottom fontSize={"2rem"}>
           Forgot Password
         </Typography>
 

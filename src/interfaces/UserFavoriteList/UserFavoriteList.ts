@@ -3,4 +3,5 @@ export interface UserFavoriteList {
   email?: string;
   favorites: string[];
   loading?: "idle" | "pending" | "succeeded" | "failed";
+  error?: string;
 }

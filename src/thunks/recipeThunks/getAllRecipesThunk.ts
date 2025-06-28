@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getAllRecipes } from "../../firebaseConfig/firebaseconfig";
 import { Recipes } from "../../interfaces/Recipes/Recipes";
+import { revertAllSlicesToInitialState } from "../../actions/revertAllSlicesToInitialState";
 
 export const getAllRecipesThunk = createAsyncThunk(
   "recipes/getRecipes",
@@ -25,7 +26,11 @@ const initialState: Recipes = {
 export const getRecipesSlice = createSlice({
   name: "recipe/getRecipes",
   initialState,
-  reducers: {},
+  reducers: {
+    reset(state) {
+      Object.assign(state, initialState);
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(getAllRecipesThunk.fulfilled, (state, action) => {
@@ -33,17 +38,18 @@ export const getRecipesSlice = createSlice({
 
       const recipesPayload = action.payload;
 
-      recipesPayload.forEach((recipes) => {
-        if (!state.recipes.some((obj) => obj.title === recipes.title)) {
-          state.recipes = [...state.recipes, recipes];
-        }
-      });
+      state.recipes = recipesPayload;
     });
 
     builder.addCase(getAllRecipesThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error = "Failed to fetch the recipes. Check if they exists!";
+
+      state.recipes = [];
     });
   },
 });
 
+export const { reset } = getRecipesSlice.actions;
 export default getRecipesSlice.reducer;

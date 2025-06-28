@@ -21,12 +21,17 @@ const initialState: UserFavoriteList = {
   favorites: [],
   id: "",
   loading: "idle",
+  error: "",
 };
 
 export const getUserFavoriteRecipeListSlice = createSlice({
   name: "user/getFavoriteRecipeList",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUserList(state) {
+      Object.assign(state, initialState);
+    },
+  },
 
   extraReducers: (builder) => {
     builder.addCase(
@@ -42,7 +47,7 @@ export const getUserFavoriteRecipeListSlice = createSlice({
 
         state.id = id;
 
-        state.favorites = [...state.favorites, ...favorites];
+        state.favorites = [...favorites];
       },
     );
 
@@ -50,9 +55,12 @@ export const getUserFavoriteRecipeListSlice = createSlice({
       getUserFavoriteRecipeListThunk.rejected,
       (state, action) => {
         state.loading = "failed";
+
+        state.error =
+          "Failed to fetch the favorite recipes. Check if you are logged in!";
       },
     );
   },
 });
-
+export const { resetUserList } = getUserFavoriteRecipeListSlice.actions;
 export default getUserFavoriteRecipeListSlice.reducer;

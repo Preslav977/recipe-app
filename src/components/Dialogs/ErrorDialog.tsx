@@ -16,10 +16,21 @@ interface ErrorDialogProps {
   onClose: () => void;
 }
 
-const ErrorDialog: React.FC<ErrorDialogProps> = ({ open, message, onClose }) => {
+const ErrorDialog: React.FC<ErrorDialogProps> = ({
+  open,
+  message,
+  onClose,
+}) => {
   return (
     <Dialog open={open} onClose={onClose}>
-      <DialogTitle sx={{ display: "flex", alignItems: "center", gap: 1, color: "error.main" }}>
+      <DialogTitle
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          color: "error.main",
+        }}
+      >
         <ErrorOutlineIcon color="error" />
         Error
       </DialogTitle>

@@ -1,6 +1,8 @@
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../store/store";
 import { addRecipeUserFavoriteRecipeListThunk } from "../../thunks/userFavoriteRecipeThunk/addRecipeUserFavoriteRecipeListThunk";
+import { Button } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 export function AddFavoriteRecipeButton({
   userId,
@@ -10,6 +12,8 @@ export function AddFavoriteRecipeButton({
   recipeId: string;
 }) {
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   function addToFavoriteRecipe(userId: string, recipeId: string) {
     dispatch(
@@ -21,8 +25,19 @@ export function AddFavoriteRecipeButton({
   }
 
   return (
-    <button onClick={() => addToFavoriteRecipe(userId, recipeId)}>
-      Add to favorite
-    </button>
+    <Button
+      sx={{
+        outline: "2px solid #1976d2",
+        backgroundColor: "#1976d2",
+        color: "white",
+        marginTop: "0.5em",
+      }}
+      onClick={() => {
+        addToFavoriteRecipe(userId, recipeId);
+        navigate("/recipes");
+      }}
+    >
+      Favorite
+    </Button>
   );
 }

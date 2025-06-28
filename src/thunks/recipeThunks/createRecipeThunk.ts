@@ -74,6 +74,25 @@ export const createRecipeSlice = createSlice({
 
     builder.addCase(createRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error =
+        "Failed to create the recipe. Check if the correct data is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.authorId = "";
     });
   },
 });

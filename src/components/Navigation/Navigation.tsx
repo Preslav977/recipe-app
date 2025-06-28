@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ElementType, useState } from "react";
 import {
   AppBar,
   Toolbar,
@@ -24,28 +24,62 @@ import CreateIcon from "@mui/icons-material/Create";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import logo from "../../assets/logo.png";
+import { useDispatch } from "react-redux";
+import { AppDispatch, RootState } from "../../store/store";
+import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
 import { Logout } from "@mui/icons-material";
+import { useSelector } from "react-redux";
+import { reset } from "../../thunks/recipeThunks/getAllRecipesThunk";
+import { resetUserList } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
 
 const navItems = [
-  { title: "Home", icon: <HomeIcon /> },
-  { title: "Recipes", path: "/recipes", icon: <MenuBookIcon /> },
+  { title: "Home", icon: <HomeIcon />, hasMethod: false },
+  {
+    title: "Recipes",
+    path: "/recipes",
+    icon: <MenuBookIcon />,
+    hasMethod: false,
+  },
   {
     title: "Favorite recipes",
     path: "/favoriteRecipes",
     icon: <FavoriteIcon />,
+    hasMethod: false,
   },
-  { title: "Create recipe", path: "/createRecipe", icon: <CreateIcon /> },
-  { title: "Login", path: "/login", icon: <VpnKeyIcon /> },
-  { title: "Signup", path: "/signup", icon: <HowToRegIcon /> },
-  { title: "Log Out", path: "/login", icon: <Logout /> },
+  {
+    title: "Create recipe",
+    path: "/createRecipe",
+    icon: <CreateIcon />,
+    hasMethod: false,
+  },
+  { title: "Login", path: "/login", icon: <VpnKeyIcon />, hasMethod: false },
+  {
+    title: "Signup",
+    path: "/signup",
+    icon: <HowToRegIcon />,
+    hasMethod: false,
+  },
+  { title: "Log Out", path: "/login", icon: <Logout />, hasMethod: true },
 ];
 
-const Navbar = () => {
+export const Navigation = () => {
+  const { uid } = useSelector((state: RootState) => state.userLoginThunk);
+
+  const newNavItems = navItems.filter((item) => {
+    if (uid) {
+      return item.title !== "Login" && item.title !== "Signup";
+    }
+    return item.title == "Login" || item.title == "Signup";
+  });
+
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down(936));
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const [drawerOpen, setDrawerOpen] = useState(false);
-
+  const handleLogout = async () => {
+    dispatch(userLogoutThunk());
+  };
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };
@@ -64,15 +98,50 @@ const Navbar = () => {
           padding: 1,
         }}
       >
-        <img src={logo} alt="App Logo" style={{ width: 32, height: 32 }} />
-        <Typography variant="h1" color="textPrimary">
+        <img
+          src={logo}
+          alt="App Logo"
+          style={{ width: 32, height: 32, marginLeft: "0.3rem" }}
+        />
+        <Typography
+          variant="h1"
+          color="textPrimary"
+          fontSize={"1.25rem"}
+          marginLeft={"1.3em"}
+        >
           Recipe App
         </Typography>
       </Box>
       <List>
-        {navItems.map(({ title, path, icon }) => {
+        {newNavItems.map(({ title, path, icon, hasMethod }) => {
           const isActive = location.pathname === path;
-          return (
+          return hasMethod ? (
+            <ListItem key={path} disablePadding>
+              <ListItemButton
+                component={Link}
+                to={path}
+                selected={isActive}
+                onClick={handleLogout}
+              >
+                <ListItemIcon
+                  sx={{
+                    color: isActive ? "secondary.main" : "inherit",
+                    winWidth: "unset",
+                    mr: 0.01,
+                  }}
+                >
+                  {icon}
+                </ListItemIcon>
+                <ListItemText
+                  primary={title}
+                  sx={{
+                    fontWeight: isActive ? "bold" : "normal",
+                    color: isActive ? "secondary.main" : "inherit",
+                  }}
+                />
+              </ListItemButton>
+            </ListItem>
+          ) : (
             <ListItem key={path} disablePadding>
               <ListItemButton component={Link} to={path} selected={isActive}>
                 <ListItemIcon
@@ -113,7 +182,7 @@ const Navbar = () => {
         }}
       >
         <Link
-          to={"/recipes"}
+          to={"/"}
           style={{
             display: "flex",
             alignItems: "center",
@@ -160,11 +229,36 @@ const Navbar = () => {
           </>
         ) : (
           <Box sx={{ display: "flex", gap: 1 }}>
-            {navItems.map(({ title, path, icon }) => {
+            {newNavItems.map(({ title, path, icon, hasMethod }) => {
               const isActive = location.pathname === path;
-              return (
+              return hasMethod ? (
                 <Button
-                  key={path}
+                  key={title}
+                  component={Link}
+                  onClick={handleLogout}
+                  to={path}
+                  color={isActive ? "secondary" : "inherit"}
+                  sx={{
+                    fontWeight: isActive ? "bold" : "normal",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 0.5,
+                    textTransform: "none",
+                    "&:hover": {
+                      backgroundColor: "rgba(77, 47, 167, 0.1)",
+                      color: "darkblue",
+                    },
+                  }}
+                >
+                  {React.cloneElement(icon, {
+                    fontSize: "small",
+                    color: isActive ? "secondary" : "darkblue",
+                  })}
+                  {title}
+                </Button>
+              ) : (
+                <Button
+                  key={title}
                   component={Link}
                   to={path}
                   color={isActive ? "secondary" : "inherit"}
@@ -194,5 +288,3 @@ const Navbar = () => {
     </AppBar>
   );
 };
-
-export default Navbar;

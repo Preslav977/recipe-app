@@ -5,13 +5,14 @@ import { AppDispatch, RootState } from "../../store/store";
 import { useEffect } from "react";
 import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
 import Typography from "@mui/material/Typography";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const RecipeDetailsPage = () => {
   const { id: recipeId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
 
   const recipe = useSelector((state: RootState) => state.getRecipeThunk);
-  console.log(recipe);
+
   useEffect(() => {
     if (recipeId) {
       dispatch(getRecipeThunk(recipeId));
@@ -20,9 +21,18 @@ export const RecipeDetailsPage = () => {
 
   return (
     <>
-      {recipe.loading === "pending" && <Typography>Loading...</Typography>}
+      {recipe.loading === "pending" && <LoadingSpinner />}
       {recipe.loading === "failed" && (
-        <Typography>Error: {recipe.error}</Typography>
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {recipe.error}
+        </Typography>
       )}
       <RecipeDetails recipe={recipe} />
     </>

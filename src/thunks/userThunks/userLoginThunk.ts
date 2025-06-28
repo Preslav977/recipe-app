@@ -36,15 +36,15 @@ const initialState: User = {
 export const userLoginSlice = createSlice({
   name: "userLogin",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: () => initialState,
+  },
 
   extraReducers: (builder) => {
     builder.addCase(userLoginThunk.fulfilled, (state, action) => {
       state.loading = "succeeded";
 
       const userLogin = action.payload;
-
-      // console.log(userLogin);
 
       const { email, uid, emailVerified } = userLogin;
 
@@ -61,8 +61,11 @@ export const userLoginSlice = createSlice({
       state.loading = "failed";
 
       state.isUserLoggedIn = false;
+
+      state.error = "Login failed. Check you credentials!";
     });
   },
 });
 
+export const { logout } = userLoginSlice.actions;
 export default userLoginSlice.reducer;

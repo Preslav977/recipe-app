@@ -13,7 +13,7 @@ export const loginUser = async (
       email,
       password,
     );
-    // console.log("Logged:", userCredential.user);
+
     return userCredential;
   } catch (error: any) {
     const errorCode = error.code;

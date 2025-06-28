@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk";
 import Box from "@mui/material/Box";
 import { Container, Typography } from "@mui/material";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const RecipesPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,14 +20,50 @@ export const RecipesPage = () => {
   const allRecipes = useSelector(
     (state: RootState) => state.getAllRecipesThunk.recipes,
   );
+
+  const getDeletedRecipeId = useSelector(
+    (state: RootState) => state.deleteRecipeThunk.id,
+  );
+
+  const newFilteredAllRecipesArray = allRecipes.filter(
+    (recipe) => recipe.id !== getDeletedRecipeId,
+  );
+
   return (
     <Container sx={{ mb: 6 }}>
-      <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
+      <Typography
+        gutterBottom
+        variant="h2"
+        align="center"
+        fontSize={"2rem"}
+        sx={{ mt: 2 }}
+      >
         All Recipes
       </Typography>
-      {loading === "pending" && <Typography>Loading...</Typography>}
-      {loading === "failed" && <Typography>Error: {error}</Typography>}
-      {allRecipes.length === 0 && <Typography>No Recipes Yet</Typography>}
+      {loading === "pending" && <LoadingSpinner />}
+      {loading === "failed" && (
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {error}
+        </Typography>
+      )}
+      {allRecipes.length === 0 && (
+        <Typography
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          No Recipes Yet
+        </Typography>
+      )}
 
       <Box
         sx={{
@@ -36,7 +73,7 @@ export const RecipesPage = () => {
           justifyContent: { xs: "center", md: "flex-start" },
         }}
       >
-        {allRecipes.map((recipe, index) => (
+        {newFilteredAllRecipesArray.map((recipe, index) => (
           <RecipeCard key={index} recipe={recipe} path="recipe" />
         ))}
       </Box>

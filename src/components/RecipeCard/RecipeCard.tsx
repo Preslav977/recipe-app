@@ -29,7 +29,10 @@ export const RecipeCard = ({ recipe, path }: RecipeCardProps) => {
         <CardActionArea onClick={() => navigate(`/${path}/${recipe.id}`)}>
           <CardMedia
             component="img"
-            height="125"
+            height="150"
+            sx={{
+              objectFit: "cover",
+            }}
             image={recipe.imageURL}
             alt={recipe.title}
           />

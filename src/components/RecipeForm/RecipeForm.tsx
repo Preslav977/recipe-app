@@ -63,15 +63,15 @@ export const RecipeForm = React.memo(function RecipeForm({
         // if we are editing a recipe
         if (recipeToEdit && recipeId) {
           await dispatch(updateRecipeThunk({ recipeId, recipe })).unwrap();
-          console.log("Edit mode: updating recipe");
+          // console.log("Edit mode: updating recipe");
         } else {
           // if it's new recipe, dispatch create action
           await dispatch(createRecipeThunk(recipe)).unwrap();
-          console.log("Create mode: creating recipe");
+          // console.log("Create mode: creating recipe");
         }
         navigate("/recipes");
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
   });

@@ -20,7 +20,7 @@ export const updateRecipeThunk = createAsyncThunk(
 const initialState: Recipe = {
   title: "",
   description: "",
-  ingredients: [""],
+  ingredients: [],
   instructions: "",
   cookingTimeInMinutes: 0,
   servings: 0,
@@ -41,8 +41,6 @@ export const updateRecipeSlice = createSlice({
 
       const recipePayload: Recipe = action.payload!;
 
-      console.log(recipePayload);
-
       const {
         title,
         description,
@@ -60,7 +58,7 @@ export const updateRecipeSlice = createSlice({
 
       state.instructions = instructions;
 
-      state.ingredients = [...state.ingredients, ...ingredients];
+      state.ingredients = [...ingredients];
 
       state.cookingTimeInMinutes = cookingTimeInMinutes;
 
@@ -73,6 +71,25 @@ export const updateRecipeSlice = createSlice({
 
     builder.addCase(updateRecipeThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error =
+        "Failed to update a recipe. Check if all information is provided!";
+
+      state.title = "";
+
+      state.description = "";
+
+      state.instructions = "";
+
+      state.ingredients = [];
+
+      state.cookingTimeInMinutes = 0;
+
+      state.servings = 0;
+
+      state.imageURL = "";
+
+      state.authorId = "";
     });
   },
 });

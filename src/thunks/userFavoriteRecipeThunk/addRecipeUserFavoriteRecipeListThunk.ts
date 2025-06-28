@@ -23,6 +23,7 @@ const initialState: UserFavoriteList = {
   id: "",
   favorites: [],
   loading: "idle",
+  error: "",
 };
 
 export const addRecipeUserFavoriteRecipeListSlice = createSlice({
@@ -38,9 +39,17 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
 
         const getAllIdsFromFavoriteRecipeList = action.payload;
 
-        const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
+        const filteredNewIds = getAllIdsFromFavoriteRecipeList.map(
+          (recipeId: string) => {
+            if (!state.favorites.includes(recipeId)) {
+              state.favorites = [recipeId];
+            }
+          },
+        );
 
-        state.favorites = [...state.favorites, firstRecipeId, ...rest];
+        // const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
+
+        // state.favorites = [firstRecipeId, ...rest];
       },
     );
 
@@ -48,6 +57,11 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
       addRecipeUserFavoriteRecipeListThunk.rejected,
       (state, action) => {
         state.loading = "failed";
+
+        state.error =
+          "Failed to add a recipe to favorites. Check if an ID is provided!";
+
+        state.favorites = [];
       },
     );
   },

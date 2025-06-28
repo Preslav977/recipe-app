@@ -6,6 +6,7 @@ import { getAllRecipesThunk } from "../../thunks/recipeThunks/getAllRecipesThunk
 import Box from "@mui/material/Box";
 import { Container, Typography } from "@mui/material";
 import { getUserFavoriteRecipeListThunk } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const FavouriteRecipesPage = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -31,13 +32,38 @@ export const FavouriteRecipesPage = () => {
 
   return (
     <Container sx={{ mb: 6 }}>
-      <Typography gutterBottom variant="h4" align="center" sx={{ mt: 2 }}>
+      <Typography
+        gutterBottom
+        variant="h2"
+        align="center"
+        fontSize={"2rem"}
+        sx={{ mt: 2 }}
+      >
         Favorite Recipes
       </Typography>
-      {loading === "pending" && <Typography>Loading...</Typography>}
-      {loading === "failed" && <Typography>Error: {error}</Typography>}
+      {loading === "pending" && <LoadingSpinner />}
+      {loading === "failed" && (
+        <Typography
+          sx={{
+            color: "red",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          Error: {error}
+        </Typography>
+      )}
       {favouriteRecipes.length === 0 && (
-        <Typography>No Favourite Recipes </Typography>
+        <Typography
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          No Favourite Recipes{" "}
+        </Typography>
       )}
 
       <Box

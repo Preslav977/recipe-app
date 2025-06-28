@@ -58,6 +58,8 @@ export const userRegisterSlice = createSlice({
 
     builder.addCase(userRegisterThunk.rejected, (state, action) => {
       state.loading = "failed";
+
+      state.error = "Email in use! Choose a different one!";
     });
   },
 });

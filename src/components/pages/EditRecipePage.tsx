@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
+import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
 
 export const EditRecipePage = () => {
   const { recipeId } = useParams();
@@ -18,13 +19,19 @@ export const EditRecipePage = () => {
   }, [dispatch, recipeId]);
 
   if (recipe.loading === "idle" || recipe.loading === "pending") {
-    return <div>Loading...</div>;
+    return <LoadingSpinner />;
   }
 
   return (
     <Container maxWidth="sm" sx={{ mt: 2 }}>
-      <Typography variant="h4" component="h4" gutterBottom align="center">
-        Create a Recipe
+      <Typography
+        variant="h2"
+        component="h2"
+        fontSize={"2rem"}
+        gutterBottom
+        align="center"
+      >
+        Update Recipe
       </Typography>
       <RecipeForm recipeToEdit={recipe} recipeId={recipeId || ""} />
     </Container>

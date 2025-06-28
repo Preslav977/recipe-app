@@ -16,7 +16,7 @@ export function ErrorPage() {
       }}
     >
       <Typography
-        variant="h4"
+        variant="h3"
         sx={{
           fontSize: "2.5rem",
           color: "white",

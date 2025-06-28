@@ -8,22 +8,33 @@ import {
   ListItem,
   ListItemText,
   Divider,
-  Button,
   Box,
 } from "@mui/material";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
 import RestaurantMenuIcon from "@mui/icons-material/RestaurantMenu";
-import { useNavigate } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { RecipeFromFireStore } from "../../interfaces/Recipe/Recipe";
+import { AddFavoriteRecipeButton } from "../AddFavoriteRecipeButton/AddFavoriteRecipeButton";
+import { RemoveFavoriteRecipeButton } from "../RemoveFavoriteRecipeButton/RemoveFavoriteRecipeButton";
+
+import { useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import { RemoveRecipeButton } from "../RemoveRecipeButton/RemoveRecipeButton";
 
 interface RecipeDetailsProps {
   recipe: RecipeFromFireStore;
 }
 
 export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
+  const { uid, emailVerified } = useSelector(
+    (state: RootState) => state.userLoginThunk,
+  ) as { uid: string; emailVerified: boolean };
+
+  const { id } = useParams() as { id: string };
+
   return (
     <Container maxWidth="sm" sx={{ mt: 4, mb: 2 }}>
-      <Typography variant="h4" component="h1" gutterBottom align="center">
+      <Typography variant="h4" component="h4" gutterBottom align="center">
         {recipe.title}
       </Typography>
 
@@ -31,6 +42,9 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
         <CardMedia
           component="img"
           height="250"
+          sx={{
+            objectFit: "cover",
+          }}
           image={recipe.imageURL}
           alt={recipe.title}
         />
@@ -78,7 +92,7 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
             </Box>
           </Box>
           <Divider sx={{ mb: 1 }} />
-          <Typography variant="h6" gutterBottom sx={{ mb: 0 }}>
+          <Typography variant="h5" gutterBottom sx={{ mb: 0 }}>
             Necessary products
           </Typography>
           <List
@@ -106,6 +120,46 @@ export const RecipeDetails = ({ recipe }: RecipeDetailsProps) => {
           </Typography>
         </CardContent>
       </Card>
+      {emailVerified ? (
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "0.5em",
+          }}
+        >
+          <AddFavoriteRecipeButton userId={uid} recipeId={id} />
+          <RemoveFavoriteRecipeButton userId={uid} recipeId={id} />
+
+          {uid === recipe.authorId ? (
+            <>
+              <Link
+                style={{
+                  padding: "8px 8px",
+                  borderRadius: "4px",
+                  textDecoration: "none",
+                  color: "white",
+                  backgroundColor: "#1976d2",
+                  marginTop: "0.5em",
+                  textTransform: "uppercase",
+                  fontSize: " 0.875rem",
+                  lineHeight: "1.75",
+                }}
+                to={`/updateRecipe/${id}`}
+              >
+                Edit Recipe
+              </Link>
+
+              <RemoveRecipeButton recipeId={id} />
+            </>
+          ) : (
+            ""
+          )}
+        </Box>
+      ) : (
+        ""
+      )}
     </Container>
   );
 };

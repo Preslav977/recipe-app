@@ -2,15 +2,14 @@ import App from "../App";
 import LoginForm from "../components/LoginForm/LoginForm";
 import SignUpForm from "../components/SignUpForm/SignUpForm";
 import { ProtectedRoute } from "../components/ProtectedRoute/ProtectedRoute";
-import { CreateRecipePage } from "../components/Pages/CreateRecipePage";
-import { EditRecipePage } from "../components/Pages/EditRecipePage";
+import { CreateRecipePage } from "../components/pages/CreateRecipePage";
+import { EditRecipePage } from "../components/pages/EditRecipePage";
 import { ForgotPasswordForm } from "../components/ForgotPassword/ForgotPassword";
-import { HomePage } from "../components/Pages/HomePage";
-import { RecipesPage } from "../components/Pages/RecipesPage";
-import { FavouriteRecipesPage } from "../components/Pages/FavouriteRecipesPage";
-import { RecipeDetailsPage } from "../components/Pages/RecipeDetailsPage";
+import { HomePage } from "../components/pages/HomePage";
+import { RecipesPage } from "../components/pages/RecipesPage";
+import { FavouriteRecipesPage } from "../components/pages/FavouriteRecipesPage";
+import { RecipeDetailsPage } from "../components/pages/RecipeDetailsPage";
 import { ErrorPage } from "../components/ErrorPage/ErrorPage";
-
 
 const routes = [
   {
@@ -70,10 +69,6 @@ const routes = [
             <EditRecipePage />
           </ProtectedRoute>
         ),
-      },
-      {
-        path: "/deleteRecipe/:recipeId",
-        element: <ProtectedRoute>''</ProtectedRoute>,
       },
       {
         path: "/favoriteRecipes",
