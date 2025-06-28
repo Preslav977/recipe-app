@@ -1,4 +1,4 @@
-import { Box, Typography, Paper, Button, Container } from "@mui/material";
+import { Box, Typography, Paper, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
@@ -195,7 +195,7 @@ export const HomePage = () => {
         >
           <Typography
             gutterBottom
-            variant="h2"
+            variant="h3"
             fontSize={"2rem"}
             sx={{ mt: 2 }}
           >

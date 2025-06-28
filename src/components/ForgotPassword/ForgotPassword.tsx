@@ -15,7 +15,7 @@ export const ForgotPasswordForm = () => {
         await requestPasswordReset(values.email);
         navigate("/login");
       } catch (err) {
-        console.log(err);
+        throw err;
       }
     },
   });

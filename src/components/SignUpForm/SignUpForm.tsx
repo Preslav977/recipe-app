@@ -19,9 +19,12 @@ import { userRegisterThunk } from "../../thunks/userThunks/userRegisterThunk";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { useNavigate } from "react-router-dom";
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
+
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -45,7 +48,9 @@ const SignUpForm = () => {
           }),
         );
         resetForm();
+        navigate("/login");
       } catch (err) {
+        throw err;
       } finally {
       }
     },

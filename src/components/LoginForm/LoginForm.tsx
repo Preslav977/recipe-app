@@ -37,7 +37,9 @@ const LoginForm = () => {
           }),
         );
         navigate("/");
-      } catch (e) {}
+      } catch (e) {
+        throw e;
+      }
     },
   });
 

@@ -1,12 +1,35 @@
-# React + Vite
+#recipe-app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a React project created with [Vite]('https://vite.dev/').
 
-Currently, two official plugins are available:
+# Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Before running it, run `npm install` to install all dependencies.
 
-## Expanding the ESLint configuration
+First, run the application with <tab>`npm run dev` or `yarn dev`</tab>.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Open [http://localhost:5173]('http://localhost:5173') with your browser to start the project.
+
+Add .env file in the root of the project with these variables.
+
+`apiKey: "AIzaSyCR5mhyU7G4xIOgQL5ggA-8CI4zn0w2dHI",
+authDomain: "growit-25-recepies.firebaseapp.com",
+projectId: "growit-25-recepies",
+storageBucket: "growit-25-recepies.firebasestorage.app",
+messagingSenderId: "844733132204",
+appId: "1:844733132204:web:68a8ea718690dc853cde09",
+measurementId: "G-26L7JFV4GD"`
+
+# Learn more
+
+To learn more about React, Redux, Firebase, take a look a the following resources:
+
+[React Documentation]('https://react.dev/') - learn about React here.
+
+[Redux Toolkit Documentation]('https://redux-toolkit.js.org/') - learn about Redux Toolkit.
+
+[Firebase Documentation]('https://firebase.google.com/docs') - learn about Firebase.
+
+# Deploy on Vercel
+
+The easiest way to deploy your React application is to use [Vercel]('https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme').

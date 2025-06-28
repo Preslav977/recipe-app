@@ -24,8 +24,14 @@ export const EditRecipePage = () => {
 
   return (
     <Container maxWidth="sm" sx={{ mt: 2 }}>
-      <Typography variant="h3" component="h3" gutterBottom align="center">
-        Create a Recipe
+      <Typography
+        variant="h2"
+        component="h2"
+        fontSize={"2rem"}
+        gutterBottom
+        align="center"
+      >
+        Update Recipe
       </Typography>
       <RecipeForm recipeToEdit={recipe} recipeId={recipeId || ""} />
     </Container>

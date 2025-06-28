@@ -60,11 +60,6 @@ const navItems = [
   { title: "Log Out", path: "/login", icon: <Logout />, hasMethod: true },
 ];
 
-interface ListItemButtonProps {
-  component: ElementType;
-  path: string;
-}
-
 export const Navigation = () => {
   const { uid } = useSelector((state: RootState) => state.userLoginThunk);
 

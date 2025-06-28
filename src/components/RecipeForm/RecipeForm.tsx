@@ -71,7 +71,7 @@ export const RecipeForm = React.memo(function RecipeForm({
         }
         navigate("/recipes");
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
   });
