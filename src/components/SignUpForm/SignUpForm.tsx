@@ -1,25 +1,25 @@
-import { useState } from "react";
-import { useFormik } from "formik";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../store/store";
-import {
-  Paper,
-  Typography,
-  Box,
-  Button,
-  TextField,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import {
+  Box,
+  Button,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { useFormik } from "formik";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../store/store";
 
-import { validationSchema } from "./validationSchema";
-import { userRegisterThunk } from "../../thunks/userThunks/userRegisterThunk";
-import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { RootState } from "../../store/store";
-import { useNavigate } from "react-router-dom";
+import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
+import { userRegisterThunk } from "../../thunks/userThunks/userRegisterThunk";
+import { validationSchema } from "./validationSchema";
 
 const SignUpForm = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -40,15 +40,28 @@ const SignUpForm = () => {
     validationSchema,
     onSubmit: async (values, { resetForm }) => {
       try {
-        await dispatch(
+        const response = await dispatch(
           userRegisterThunk({
             email: values.email,
             password: values.password,
             favorites: [],
           }),
         );
-        resetForm();
-        navigate("/");
+
+        if (!response.payload) {
+          resetForm();
+          navigate("/signup");
+        } else {
+          dispatch(
+            userLoginThunk({
+              email: formik.values.email,
+              password: formik.values.password,
+              favorites: [],
+            }),
+          );
+          resetForm();
+          navigate("/");
+        }
       } catch (err) {
         throw err;
       } finally {

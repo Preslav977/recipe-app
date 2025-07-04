@@ -1,12 +1,12 @@
-import { useNavigate } from "react-router-dom";
 import {
   Card,
   CardActionArea,
-  CardMedia,
   CardContent,
-  Typography,
+  CardMedia,
   Container,
+  Typography,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { RecipeFromFireStore } from "../../interfaces/Recipe/Recipe";
 
 export interface RecipeCardProps {

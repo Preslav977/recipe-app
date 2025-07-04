@@ -1,36 +1,33 @@
-import React, { ElementType, useState } from "react";
+import { Logout } from "@mui/icons-material";
+import CreateIcon from "@mui/icons-material/Create";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import HomeIcon from "@mui/icons-material/Home";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
+import MenuIcon from "@mui/icons-material/Menu";
+import MenuBookIcon from "@mui/icons-material/MenuBook";
+import VpnKeyIcon from "@mui/icons-material/VpnKey";
 import {
   AppBar,
-  Toolbar,
-  Typography,
   Box,
   Button,
-  IconButton,
   Drawer,
+  IconButton,
   List,
   ListItem,
+  ListItemButton,
   ListItemIcon,
   ListItemText,
-  ListItemButton,
+  Toolbar,
+  Typography,
   useMediaQuery,
   useTheme,
 } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
+import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
-import HomeIcon from "@mui/icons-material/Home";
-import MenuBookIcon from "@mui/icons-material/MenuBook";
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import CreateIcon from "@mui/icons-material/Create";
-import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import HowToRegIcon from "@mui/icons-material/HowToReg";
 import logo from "../../assets/logo.png";
-import { useDispatch } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { userLogoutThunk } from "../../thunks/userThunks/userLogoutThunk";
-import { Logout } from "@mui/icons-material";
-import { useSelector } from "react-redux";
-import { reset } from "../../thunks/recipeThunks/getAllRecipesThunk";
-import { resetUserList } from "../../thunks/userFavoriteRecipeThunk/getUserFavoriteRecipeListThunk";
 
 const navItems = [
   { title: "Home", icon: <HomeIcon />, hasMethod: false },
@@ -73,13 +70,19 @@ export const Navigation = () => {
   });
 
   const dispatch = useDispatch<AppDispatch>();
+
   const location = useLocation();
+
   const theme = useTheme();
+
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [drawerOpen, setDrawerOpen] = useState(false);
+
   const handleLogout = async () => {
     dispatch(userLogoutThunk());
   };
+
   const toggleDrawer = (open: boolean) => () => {
     setDrawerOpen(open);
   };

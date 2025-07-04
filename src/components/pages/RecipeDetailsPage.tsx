@@ -1,11 +1,11 @@
-import { useParams } from "react-router-dom";
-import { RecipeDetails } from "../RecipeDetails/RecipeDetails";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../store/store";
-import { useEffect } from "react";
-import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
 import Typography from "@mui/material/Typography";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { AppDispatch, RootState } from "../../store/store";
+import { getRecipeThunk } from "../../thunks/recipeThunks/getRecipeThunk";
 import { LoadingSpinner } from "../LoadingSpinner/LoadingSpinner";
+import { RecipeDetails } from "../RecipeDetails/RecipeDetails";
 
 export const RecipeDetailsPage = () => {
   const { id: recipeId } = useParams();

@@ -1,19 +1,19 @@
-import { useFormik } from "formik";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 import {
   Box,
-  Paper,
-  Typography,
-  TextField,
-  InputAdornment,
-  IconButton,
   Button,
+  IconButton,
+  InputAdornment,
+  Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
-import { AppDispatch, RootState } from "../../store/store";
+import { useFormik } from "formik";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../../store/store";
+import { userLoginThunk } from "../../thunks/userThunks/userLoginThunk";
 import { validationSchema } from "./validationSchema";
 
 const LoginForm = () => {
@@ -36,7 +36,6 @@ const LoginForm = () => {
             favorites: [],
           }),
         );
-
         navigate("/");
       } catch (e) {
         throw e;

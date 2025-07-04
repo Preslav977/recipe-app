@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addFavoriteRecipe } from "../../services/userFavoriteRecipes/addFavoriteRecipe";
 import { UserFavoriteList } from "../../interfaces/UserFavoriteList/UserFavoriteList";
+import { addFavoriteRecipe } from "../../services/userFavoriteRecipes/addFavoriteRecipe";
 
 export const addRecipeUserFavoriteRecipeListThunk = createAsyncThunk(
   "user/addRecipeFavoriteRecipeList",
@@ -46,10 +46,6 @@ export const addRecipeUserFavoriteRecipeListSlice = createSlice({
             }
           },
         );
-
-        // const [firstRecipeId, ...rest] = getAllIdsFromFavoriteRecipeList;
-
-        // state.favorites = [firstRecipeId, ...rest];
       },
     );
 
